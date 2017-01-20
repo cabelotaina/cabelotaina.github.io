@@ -32,7 +32,7 @@ lang: "en"
 author: "Maurilio Atila"
 title: "{ cabelo }"
 description: "Blog and website of Maurilio Atila, blogging mainly for tech. Opinions expressed are mine."
-keywords: "atila, maurilio, personal, jekyll, theme"
+keywords: "atila, maurilio, personal, development"
 favicon: "/img/favicon.ico"
 
 ################
@@ -136,7 +136,7 @@ email: "cabelotaina@gmail.com"
 # This works best when your author blurb image has a transparent background, or matches your site background color.
 
 # if the author_blurb is not set, then this feature is skipped
-author_blurb: "Maurilio Atila is an awesome person. He lives in Diamantina, where he works on web and mobile development projects. In his spare time, Maurilio Atila to walk in the old streets."
+author_blurb: "Maurilio Atila is an awesome person. He lives in Diamantina, where he works on web and mobile development projects. In his spare time, Maurilio Atila walk in the old streets."
 author_blurb_image: "/img/author.png"
 
 ##################
