@@ -1,21 +1,27 @@
 <template>
-  <div
-    class="grid content-center p-5 justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-screen"
-  >
-    <div class="flex items-center justify-center">
-      <img alt="Imagem com o rosto de Maurílio Atila" src="./assets/logo.png" />
-    </div>
-    <HelloWorld msg="Hello! I'm Mau o/" />
+  <div class="grid content-center p-5 justify-center">
+    <img
+      alt="Imagem com o rosto de Maurílio Atila"
+      src="./assets/logo.png"
+      class="w-52"
+    />
+    <Introduction msg="Maurilio Atila" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Introduction from "./components/MyIntroduction.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    Introduction,
   },
 };
 </script>
+<style>
+body {
+  background: rgb(3, 128, 57);
+  background-image: linear-gradient(to right, indigo, purple, orange);
+}
+</style>
