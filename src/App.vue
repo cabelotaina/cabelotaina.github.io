@@ -157,12 +157,51 @@
           </h2>
           <p class="text-zinc-400 mb-8 text-lg">Part-time freelance · up to 4h/day · Remote or Madrid on-site.</p>
           <div class="flex flex-wrap gap-4">
-            <a href="mailto:cabelotaina@gmail.com" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> cabelotaina@gmail.com</a>
+            <button @click="showEmailModal = true" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> Send me an email</button>
             <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fab fa-linkedin"></i> LinkedIn</a>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- EMAIL MODAL -->
+    <transition name="modal-fade">
+      <div v-if="showEmailModal" class="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-4" @click.self="showEmailModal = false">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <div class="relative bg-zinc-900 border border-zinc-700 rounded-2xl p-8 w-full max-w-md shadow-2xl">
+          <button @click="showEmailModal = false" class="absolute top-4 right-4 text-zinc-500 hover:text-zinc-200 text-xl leading-none">✕</button>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-envelope text-white text-lg"></i>
+            </div>
+            <div>
+              <p class="font-bold text-white text-sm">Send me an email</p>
+              <p class="text-zinc-500 text-xs">I'll reply within 24h</p>
+            </div>
+          </div>
+          <form @submit.prevent="submitEmail" class="space-y-4">
+            <div>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Name *</label>
+              <input v-model="emailLeadName" type="text" required placeholder="Your name" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Your email *</label>
+              <input v-model="emailLeadEmail" type="email" required placeholder="your@email.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Message *</label>
+              <textarea v-model="emailLeadMessage" rows="3" required placeholder="Tell me about your project..." class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+            <button type="submit" :disabled="emailSending" class="w-full bg-orange-500 hover:bg-orange-400 disabled:opacity-50 disabled:cursor-wait text-white font-bold py-3 rounded-full text-sm transition-colors flex items-center justify-center gap-2">
+              <span v-if="emailSending">Sending...</span>
+              <span v-else>Send message →</span>
+            </button>
+            <p v-if="emailSuccess" class="text-green-400 text-xs text-center"><i class="fas fa-check mr-1"></i>Message sent! I'll be in touch soon.</p>
+            <p v-if="emailError" class="text-red-400 text-xs text-center">{{ emailError }}</p>
+          </form>
+        </div>
+      </div>
+    </transition>
 
     <!-- WHATSAPP LEAD MODAL -->
     <transition name="modal-fade">
@@ -237,6 +276,13 @@ export default {
       leadMessage: '',
       leadSending: false,
       leadError: '',
+      showEmailModal: false,
+      emailLeadName: '',
+      emailLeadEmail: '',
+      emailLeadMessage: '',
+      emailSending: false,
+      emailSuccess: false,
+      emailError: '',
       jobs: [
         {
           period: "Dec 2024 – May 2026",
@@ -303,6 +349,32 @@ export default {
     clearInterval(this.wordTimer);
   },
   methods: {
+    async submitEmail() {
+      this.emailSending = true;
+      this.emailError = '';
+      this.emailSuccess = false;
+      try {
+        await emailjs.send(
+          'service_uy5yk0s',
+          'template_f9w0v48',
+          {
+            name: this.emailLeadName,
+            email: this.emailLeadEmail,
+            time: new Date().toLocaleString('pt-BR', { timeZone: 'Europe/Madrid' }),
+            message: this.emailLeadMessage,
+          },
+          'DI5beBFZHP3rS6nGZ'
+        );
+        this.emailSuccess = true;
+        this.emailLeadName = '';
+        this.emailLeadEmail = '';
+        this.emailLeadMessage = '';
+        setTimeout(() => { this.showEmailModal = false; this.emailSuccess = false; }, 2500);
+      } catch (e) {
+        this.emailError = 'Failed to send. Please try LinkedIn instead.';
+      }
+      this.emailSending = false;
+    },
     async submitLead() {
       this.leadSending = true;
       this.leadError = '';
