@@ -56,7 +56,7 @@
           </p>
         </div>
         <div class="flex flex-col items-start md:items-end gap-6 md:pb-2">
-          <img src="./assets/logo.png" alt="Maurilio Atila" class="w-28 h-28 rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 shadow-xl" />
+          <img @click="showEmailModal = true" src="./assets/logo.png" alt="Maurilio Atila" class="w-28 h-28 rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 shadow-xl cursor-pointer hover:ring-2 hover:ring-orange-500" title="Send me an email" />
           <div class="flex gap-3">
             <a href="https://github.com/cabelotaina" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -158,6 +158,7 @@
           <p class="text-zinc-400 mb-8 text-lg">Part-time freelance · up to 4h/day · Remote or Madrid on-site.</p>
           <div class="flex flex-wrap gap-4">
             <button @click="showEmailModal = true; $gtag('email_button_click')" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> Send me an email</button>
+            <a href="/maurilio-atila-cv.pdf" download="maurilio-atila-cv.pdf" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fas fa-download"></i> Download CV</a>
             <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" @click="$gtag('linkedin_click')" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fab fa-linkedin"></i> LinkedIn</a>
           </div>
         </div>
