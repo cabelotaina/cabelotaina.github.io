@@ -292,6 +292,7 @@ export default {
       wordLoading: false,
       wordTimer: null,
       loading: true,
+      mobileMenuOpen: false,
       showWaModal: false,
       leadName: '',
       leadContact: '',
