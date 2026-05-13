@@ -1,115 +1,124 @@
 <template>
-  <div class="min-h-screen text-white font-sans">
+  <div class="min-h-screen font-sans bg-black text-zinc-200">
+
+    <!-- SKELETON OVERLAY -->
+    <transition name="fade">
+      <div v-if="loading" class="fixed inset-0 bg-black z-[100] px-8 pt-40 pb-28">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex flex-col md:flex-row md:items-end gap-12">
+            <div class="flex-1 space-y-6">
+              <div class="skeleton h-3 w-48 rounded"></div>
+              <div class="space-y-4">
+                <div class="skeleton h-16 w-64 rounded"></div>
+                <div class="skeleton h-16 w-80 rounded"></div>
+                <div class="skeleton h-16 w-56 rounded"></div>
+              </div>
+              <div class="space-y-2">
+                <div class="skeleton h-4 w-96 rounded"></div>
+                <div class="skeleton h-4 w-72 rounded"></div>
+              </div>
+            </div>
+            <div class="flex flex-col items-end gap-6">
+              <div class="skeleton w-28 h-28 rounded-2xl"></div>
+              <div class="skeleton h-3 w-32 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
     <!-- NAV -->
-    <nav class="fixed top-0 w-full bg-black/30 backdrop-blur z-50">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-        <img src="./assets/logo.png" alt="Maurilio Atila" class="w-10 h-10 rounded-full" />
-        <div class="flex gap-6 text-sm text-white/80">
-          <a href="#about" class="hover:text-white transition">About</a>
-          <a href="#experience" class="hover:text-white transition">Experience</a>
-          <a href="#skills" class="hover:text-white transition">Skills</a>
-          <a href="#contact" class="hover:text-white transition">Contact</a>
+    <nav class="fixed top-0 w-full z-50 bg-black/98 backdrop-blur-sm border-b border-zinc-900">
+      <div class="max-w-6xl mx-auto px-8 py-5 flex justify-between items-center">
+        <span class="text-sm font-semibold tracking-widest uppercase text-zinc-400">Maurilio Atila</span>
+        <div class="flex gap-8 text-sm text-zinc-500">
+          <a href="#about" class="hover:text-white transition-colors">About</a>
+          <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+          <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+          <a href="#contact" class="hover:text-white transition-colors">Contact</a>
         </div>
       </div>
     </nav>
 
     <!-- HERO -->
-    <section class="max-w-5xl mx-auto px-6 pt-36 pb-20 flex flex-col md:flex-row items-center gap-10">
-      <img src="./assets/logo.png" alt="Maurilio Atila" class="w-36 h-36 rounded-full shadow-2xl border-4 border-white/20 flex-shrink-0" />
-      <div>
-        <p class="text-yellow-300 text-sm font-semibold uppercase tracking-widest mb-3">Full Stack Developer & Tech Lead</p>
-        <h1 class="text-5xl font-bold leading-tight mb-4">
-          Building products<br/>that scale.
-        </h1>
-        <p class="text-white/70 text-lg max-w-xl mb-8">
-          12+ years delivering web, mobile and cloud solutions. Currently based in Madrid.
-          Available part-time (4h/day) for freelance projects.
-        </p>
-        <div class="flex gap-4 flex-wrap">
-          <a href="#contact" class="bg-white text-purple-700 font-semibold px-5 py-2.5 rounded-lg text-sm transition hover:bg-yellow-300">Get in touch</a>
-          <a href="https://github.com/cabelotaina" target="_blank" rel="noopener" class="border border-white/40 hover:border-white text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">GitHub</a>
-          <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="border border-white/40 hover:border-white text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">LinkedIn</a>
+    <section class="max-w-6xl mx-auto px-8 pt-40 pb-28">
+      <div class="flex flex-col md:flex-row md:items-end gap-12">
+        <div class="flex-1">
+          <p class="text-xs font-bold uppercase tracking-[0.25em] text-orange-400 mb-6">Full Stack Developer & Tech Lead</p>
+          <h1 class="text-7xl md:text-8xl font-black leading-none tracking-tight mb-8">
+            Building<br/>
+            <span v-if="wordLoading" class="word-skeleton inline-block rounded"></span>
+            <span v-else class="gradient-text word-reveal">{{ currentWord }}</span><br/>
+            that scale.
+          </h1>
+          <p class="text-zinc-400 text-xl max-w-md leading-relaxed">
+            12+ years in web, mobile and cloud. Madrid-based. Available part-time — 4h/day.
+          </p>
+        </div>
+        <div class="flex flex-col items-start md:items-end gap-6 md:pb-2">
+          <img src="./assets/logo.png" alt="Maurilio Atila" class="w-28 h-28 rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 shadow-xl" />
+          <div class="flex gap-3">
+            <a href="https://github.com/cabelotaina" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
-      <h2 class="text-2xl font-bold mb-6">About</h2>
-      <div class="grid md:grid-cols-2 gap-8 text-white/70 leading-relaxed">
-        <p>
-          I'm a Brazilian developer living in Madrid with over 12 years of experience across the full stack — from Vue.js and React frontends to Node.js APIs, AWS infrastructure, and native mobile apps.
-        </p>
-        <p>
-          I recently led two international projects for <strong class="text-white">Hoffmann-La Roche</strong> across 26 countries, introduced AI-assisted development to my team, and unblocked a project that had been delayed for over a year. I work best in environments that value autonomy, quality, and delivery.
-        </p>
+    <!-- DIVIDER with tags -->
+    <div class="border-t border-zinc-800 py-5">
+      <div class="max-w-6xl mx-auto px-8 flex flex-wrap gap-4 text-xs text-zinc-500 uppercase tracking-widest">
+        <span><i class="fas fa-location-dot mr-1.5"></i>Madrid, Spain</span>
+        <span class="text-zinc-700">—</span>
+        <span><i class="far fa-clock mr-1.5"></i>Part-time · 4h/day</span>
+        <span class="text-zinc-700">—</span>
+        <span><i class="fas fa-earth-americas mr-1.5"></i>PT · EN B2 · ES B2</span>
+        <span class="text-zinc-700">—</span>
+        <span><i class="fas fa-wifi mr-1.5"></i>Remote</span>
       </div>
-      <div class="mt-8 flex flex-wrap gap-3 text-sm">
-        <span class="bg-white/10 text-white px-3 py-1 rounded-full">📍 Madrid, Spain</span>
-        <span class="bg-white/10 text-white px-3 py-1 rounded-full">🕓 Part-time · 4h/day</span>
-        <span class="bg-white/10 text-white px-3 py-1 rounded-full">🌍 PT · EN · ES</span>
-        <span class="bg-white/10 text-white px-3 py-1 rounded-full">🔓 Open to remote</span>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about" class="max-w-6xl mx-auto px-8 py-24">
+      <div class="grid md:grid-cols-12 gap-8 items-start">
+        <div class="md:col-span-3">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mt-1">01 — About</p>
+        </div>
+        <div class="md:col-span-9 grid md:grid-cols-2 gap-8 text-zinc-400 text-lg leading-relaxed">
+          <p>
+            Brazilian developer living in Madrid with 12+ years across the full stack — Vue.js, React, Node.js, AWS, and native mobile apps (Android & iOS).
+          </p>
+          <p>
+            Recently led two international products for <strong class="text-zinc-100 font-semibold">Hoffmann-La Roche</strong> across 26 countries, introduced AI-assisted development, and unblocked a project delayed by over a year.
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
-      <h2 class="text-2xl font-bold mb-10">Experience</h2>
-      <div class="space-y-10">
-
-        <div class="grid md:grid-cols-4 gap-4">
-          <div class="text-white/40 text-sm pt-1">Dec 2024 – May 2026</div>
+    <section id="experience" class="border-t border-zinc-800 py-24">
+      <div class="max-w-6xl mx-auto px-8">
+        <div class="grid md:grid-cols-12 gap-8 mb-16">
           <div class="md:col-span-3">
-            <h3 class="font-semibold text-white text-lg">Project Development Manager & Tech Lead</h3>
-            <p class="text-yellow-300 text-sm mb-2">AMURA IT · Madrid, Spain</p>
-            <p class="text-white/60 text-sm leading-relaxed mb-3">
-              Led delivery of <strong class="text-white">Focusme</strong> and <strong class="text-white">Med Wallet</strong> for Hoffmann-La Roche across 26 countries. Sole tech architect for a team of 6.
-            </p>
-            <ul class="text-white/60 text-sm space-y-1 list-disc list-inside">
-              <li>Unblocked 1-year-delayed Brazil project: Ionic app + AWS ECS API + React frontend + Cognito 2FA</li>
-              <li>Introduced AI-assisted development — trained 3 devs, significantly reduced bug rate</li>
-              <li>Led 2 major version migrations on Focusme (iOS & Android)</li>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">02 — Experience</p>
+          </div>
+        </div>
+
+        <div v-for="(job, i) in jobs" :key="i" class="grid md:grid-cols-12 gap-8 py-10 border-t border-zinc-800 group">
+          <div class="md:col-span-3">
+            <p class="text-xs text-zinc-600 font-mono mt-1">{{ job.period }}</p>
+          </div>
+          <div class="md:col-span-9">
+            <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1 mb-3">
+              <h3 class="text-xl font-bold text-zinc-100">{{ job.title }}</h3>
+              <span class="text-orange-400 text-sm font-semibold">{{ job.company }}</span>
+            </div>
+            <p class="text-zinc-400 leading-relaxed mb-4 max-w-2xl">{{ job.description }}</p>
+            <ul v-if="job.bullets" class="text-zinc-500 text-sm space-y-1 mb-4 list-none">
+              <li v-for="b in job.bullets" :key="b" class="flex gap-2"><span class="text-orange-400 flex-shrink-0">→</span>{{ b }}</li>
             </ul>
-            <div class="flex flex-wrap gap-2 mt-3">
-              <span v-for="t in ['React', 'Ionic', 'Android', 'iOS', 'Node.js', 'AWS ECS', 'Cognito', 'TypeScript', 'Salesforce']" :key="t" class="bg-white/10 text-white text-xs px-2 py-0.5 rounded">{{ t }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-4 gap-4">
-          <div class="text-white/40 text-sm pt-1">Jan 2021 – Present</div>
-          <div class="md:col-span-3">
-            <h3 class="font-semibold text-white text-lg">Co-Owner & Full Stack Developer</h3>
-            <p class="text-yellow-300 text-sm mb-2">BCompliance&Law · São Paulo, Brazil (Remote)</p>
-            <p class="text-white/60 text-sm leading-relaxed">
-              Built the entire SaaS suite from scratch: institutional site, client portal, backoffice, and complaint channel. Payment integration (Vindi), CI/CD via GitHub Actions + AWS CloudFormation.
-            </p>
-            <div class="flex flex-wrap gap-2 mt-3">
-              <span v-for="t in ['Vue.js 3', 'Node.js', 'MongoDB', 'PostgreSQL', 'Tailwind', 'AWS', 'GitHub Actions']" :key="t" class="bg-white/10 text-white text-xs px-2 py-0.5 rounded">{{ t }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-4 gap-4">
-          <div class="text-white/40 text-sm pt-1">Dec 2023 – Nov 2024</div>
-          <div class="md:col-span-3">
-            <h3 class="font-semibold text-white text-lg">Android Developer</h3>
-            <p class="text-yellow-300 text-sm mb-2">Winche Redes Comerciales · Barcelona, Spain (Remote)</p>
-            <p class="text-white/60 text-sm">Lead developer of WincheCloud data platform. UX improvements and test automation.</p>
-            <div class="flex flex-wrap gap-2 mt-3">
-              <span v-for="t in ['Kotlin', 'Java', 'Python', 'Node.js', 'MySQL']" :key="t" class="bg-white/10 text-white text-xs px-2 py-0.5 rounded">{{ t }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-4 gap-4">
-          <div class="text-white/40 text-sm pt-1">May 2019 – Oct 2022</div>
-          <div class="md:col-span-3">
-            <h3 class="font-semibold text-white text-lg">Mobile Developer</h3>
-            <p class="text-yellow-300 text-sm mb-2">Estapar · Remote</p>
-            <p class="text-white/60 text-sm">Optimized Google Maps API usage saving ~R$40k/month. Delivered Ecovagas and Estapar Reserva used by millions of users.</p>
-            <div class="flex flex-wrap gap-2 mt-3">
-              <span v-for="t in ['Ionic', 'Cordova', 'CI/CD']" :key="t" class="bg-white/10 text-white text-xs px-2 py-0.5 rounded">{{ t }}</span>
+            <div class="flex flex-wrap gap-2">
+              <span v-for="t in job.tech" :key="t" class="text-xs font-mono bg-zinc-900 border border-zinc-800 text-zinc-400 px-3 py-1 rounded-full group-hover:border-zinc-700 transition-colors">{{ t }}</span>
             </div>
           </div>
         </div>
@@ -118,48 +127,210 @@
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
-      <h2 class="text-2xl font-bold mb-8">Skills</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="group in skills" :key="group.label" class="bg-white/10 rounded-xl p-5">
-          <p class="text-yellow-300 text-xs font-semibold uppercase tracking-wider mb-3">{{ group.label }}</p>
-          <div class="flex flex-wrap gap-2">
-            <span v-for="s in group.items" :key="s" class="bg-white/10 text-white text-sm px-2.5 py-1 rounded-lg">{{ s }}</span>
+    <section id="skills" class="border-t border-zinc-800 py-24">
+      <div class="max-w-6xl mx-auto px-8">
+        <div class="grid md:grid-cols-12 gap-8 mb-16">
+          <div class="md:col-span-3">
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">03 — Skills</p>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
+          <div v-for="group in skills" :key="group.label" class="bg-black p-8">
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-orange-400 mb-5">{{ group.label }}</p>
+            <div class="flex flex-wrap gap-2">
+              <span v-for="s in group.items" :key="s" class="text-sm text-zinc-400 hover:text-white transition-colors cursor-default">{{ s }}</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="max-w-5xl mx-auto px-6 py-16 border-t border-white/10">
-      <h2 class="text-2xl font-bold mb-4">Get in touch</h2>
-      <p class="text-white/60 mb-8 max-w-lg">Available for part-time freelance projects (up to 4h/day). Remote or Madrid on-site.</p>
-      <div class="flex flex-wrap gap-4">
-        <a href="mailto:cabelotaina@gmail.com" class="bg-white text-purple-700 font-semibold px-5 py-2.5 rounded-lg text-sm transition hover:bg-yellow-300">cabelotaina@gmail.com</a>
-        <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="border border-white/40 hover:border-white text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">LinkedIn</a>
-        <a href="https://github.com/cabelotaina" target="_blank" rel="noopener" class="border border-white/40 hover:border-white text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">GitHub</a>
+    <section id="contact" class="border-t border-zinc-800 py-24">
+      <div class="max-w-6xl mx-auto px-8 grid md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-3">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">04 — Contact</p>
+        </div>
+        <div class="md:col-span-9">
+          <h2 class="text-5xl font-black mb-6 leading-tight">
+            Let's work<br/><span class="gradient-text">together.</span>
+          </h2>
+          <p class="text-zinc-400 mb-8 text-lg">Part-time freelance · up to 4h/day · Remote or Madrid on-site.</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="mailto:cabelotaina@gmail.com" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> cabelotaina@gmail.com</a>
+            <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fab fa-linkedin"></i> LinkedIn</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <footer class="border-t border-white/10 text-center text-white/30 text-sm py-8">
-      © 2026 Maurilio Atila
+    <!-- WHATSAPP LEAD MODAL -->
+    <transition name="modal-fade">
+      <div v-if="showWaModal" class="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-4" @click.self="showWaModal = false">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <div class="relative bg-zinc-900 border border-zinc-700 rounded-2xl p-8 w-full max-w-md shadow-2xl">
+          <button @click="showWaModal = false" class="absolute top-4 right-4 text-zinc-500 hover:text-zinc-200 text-xl leading-none">✕</button>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fab fa-whatsapp text-white text-2xl"></i>
+            </div>
+            <div>
+              <p class="font-bold text-white text-sm">Chat with me on WhatsApp</p>
+              <p class="text-zinc-500 text-xs">I'll reply within 24h</p>
+            </div>
+          </div>
+          <form @submit.prevent="submitLead" class="space-y-4">
+            <div>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Name *</label>
+              <input v-model="leadName" type="text" required placeholder="Your name" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Email or phone *</label>
+              <input v-model="leadContact" type="text" required placeholder="email@example.com or +34 600 000 000" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Message (optional)</label>
+              <textarea v-model="leadMessage" rows="2" placeholder="What's the project about?" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+            <button type="submit" :disabled="leadSending" class="w-full bg-green-500 hover:bg-green-400 disabled:opacity-50 disabled:cursor-wait text-white font-bold py-3 rounded-full text-sm transition-colors flex items-center justify-center gap-2">
+              <span v-if="leadSending">Sending...</span>
+              <span v-else>Continue on WhatsApp →</span>
+            </button>
+            <p v-if="leadError" class="text-red-400 text-xs text-center">{{ leadError }}</p>
+          </form>
+        </div>
+      </div>
+    </transition>
+
+    <!-- WHATSAPP FLOATING BUTTON -->
+    <button @click="showWaModal = true" class="fixed bottom-6 right-6 z-[150] w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp text-white text-3xl"></i>
+      <span class="absolute right-16 bg-zinc-900 border border-zinc-700 text-white text-xs font-semibold px-3 py-1.5 rounded-full whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">Let's talk!</span>
+    </button>
+
+    <footer class="border-t border-zinc-800 py-8">
+      <div class="max-w-6xl mx-auto px-8 flex justify-between items-center text-xs text-zinc-700 uppercase tracking-widest">
+        <span>Maurilio Atila</span>
+        <span>© 2026</span>
+      </div>
     </footer>
+
   </div>
 </template>
 
 <script>
+import emailjs from '@emailjs/browser';
+
 export default {
   name: "App",
   data() {
     return {
+      words: ["products", "a future", "solutions", "experiences", "ideas"],
+      wordIndex: 0,
+      currentWord: "products",
+      wordLoading: false,
+      wordTimer: null,
+      loading: true,
+      showWaModal: false,
+      leadName: '',
+      leadContact: '',
+      leadMessage: '',
+      leadSending: false,
+      leadError: '',
+      jobs: [
+        {
+          period: "Dec 2024 – May 2026",
+          title: "Project Development Manager & Tech Lead",
+          company: "AMURA IT · Madrid",
+          description: "Led Focusme and Med Wallet for Hoffmann-La Roche across 26 countries. Sole tech architect for a team of 6 developers.",
+          bullets: [
+            "Unblocked a 1-year-delayed project: Ionic app + AWS ECS API + React frontend + Cognito 2FA",
+            "Introduced AI-assisted development — trained 3 devs, significantly reduced bug rate",
+            "Led 2 major version migrations on Focusme (iOS & Android)",
+          ],
+          tech: ["React", "Ionic", "Android", "iOS", "Node.js", "AWS ECS", "Cognito", "TypeScript", "Salesforce"],
+        },
+        {
+          period: "Jan 2021 – Present",
+          title: "Co-Owner & Full Stack Developer",
+          company: "BCompliance&Law · São Paulo (Remote)",
+          description: "Built a full SaaS compliance suite from scratch: institutional site, client portal, backoffice, and complaint channel. Payment integration (Vindi) and CI/CD via GitHub Actions + AWS CloudFormation.",
+          bullets: null,
+          tech: ["Vue.js 3", "Node.js", "MongoDB", "PostgreSQL", "Tailwind", "AWS", "GitHub Actions"],
+        },
+        {
+          period: "Dec 2023 – Nov 2024",
+          title: "Android Developer",
+          company: "Winche · Barcelona (Remote)",
+          description: "Lead developer of WincheCloud, a data collection and management platform. Focused on UX improvements and test automation.",
+          bullets: null,
+          tech: ["Kotlin", "Java", "Python", "Node.js", "MySQL"],
+        },
+        {
+          period: "May 2019 – Oct 2022",
+          title: "Mobile Developer",
+          company: "Estapar · Remote",
+          description: "Optimized Google Maps API usage saving ~R$40k/month. Delivered Ecovagas and Estapar Reserva — apps used by millions of users. Implemented CI/CD pipelines.",
+          bullets: null,
+          tech: ["Ionic", "Cordova", "CI/CD"],
+        },
+      ],
       skills: [
         { label: "Frontend", items: ["Vue.js 2/3", "React", "Angular", "Nuxt", "Tailwind CSS", "HTML5", "SASS"] },
         { label: "Backend", items: ["Node.js", "Express", "REST APIs", "AWS Lambda", "Ruby on Rails", "PHP", "Python"] },
         { label: "Mobile", items: ["Android (Kotlin/Java)", "iOS", "Ionic", "Cordova", "React Native"] },
-        { label: "Cloud & DevOps", items: ["AWS ECS", "AWS Lambda", "S3", "Cognito", "CloudFormation", "Docker", "GitHub Actions"] },
+        { label: "Cloud & DevOps", items: ["AWS ECS", "Lambda", "S3", "Cognito", "CloudFormation", "Docker", "GitHub Actions"] },
         { label: "Databases", items: ["MongoDB", "PostgreSQL", "MySQL"] },
         { label: "Leadership", items: ["Tech Lead", "AI Training", "Agile/Jira", "Code Review", "Remote Teams"] },
       ]
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 1400);
+
+    this.wordTimer = setInterval(() => {
+      this.wordLoading = true;
+      setTimeout(() => {
+        this.wordIndex = (this.wordIndex + 1) % this.words.length;
+        this.currentWord = this.words[this.wordIndex];
+        this.wordLoading = false;
+      }, 700);
+    }, 4000);
+  },
+  beforeUnmount() {
+    clearInterval(this.wordTimer);
+  },
+  methods: {
+    async submitLead() {
+      this.leadSending = true;
+      this.leadError = '';
+      const waText = encodeURIComponent(
+        `Hi Maurilio! I'm ${this.leadName} (${this.leadContact}).${this.leadMessage ? ' ' + this.leadMessage : ''}`
+      );
+      try {
+        await emailjs.send(
+          'service_uy5yk0s',
+          'template_f9w0v48',
+          {
+            name: this.leadName,
+            email: this.leadContact,
+            time: new Date().toLocaleString('pt-BR', { timeZone: 'Europe/Madrid' }),
+            message: this.leadMessage || '(sem mensagem)',
+          },
+          'DI5beBFZHP3rS6nGZ'
+        );
+      } catch (e) {
+        // Abre o WhatsApp mesmo se o email falhar — o lead pode voltar
+        console.warn('EmailJS error:', e);
+      }
+      this.showWaModal = false;
+      this.leadName = '';
+      this.leadContact = '';
+      this.leadMessage = '';
+      this.leadSending = false;
+      window.open(`https://wa.me/34685684314?text=${waText}`, '_blank');
     }
   }
 };
@@ -167,10 +338,56 @@ export default {
 
 <style>
 * { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  background: rgb(3, 128, 57);
-  background-image: linear-gradient(135deg, indigo, purple, orange);
-  background-attachment: fixed;
+body { margin: 0; background: #000; }
+
+.skeleton {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.modal-fade-enter-active, .modal-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.modal-fade-enter-from, .modal-fade-leave-to {
+  opacity: 0;
+}
+
+.fade-leave-active {
+  transition: opacity 0.6s ease;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #f97316, #a855f7, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.word-skeleton {
+  background: linear-gradient(90deg, #2a1a00 25%, #4a2f00 50%, #2a1a00 75%);
+  background-size: 200% 100%;
+  animation: shimmer 0.8s infinite;
+  height: 0.85em;
+  width: 7ch;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.word-reveal {
+  animation: wordFadeIn 0.4s ease forwards;
+}
+
+@keyframes wordFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 </style>
