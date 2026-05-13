@@ -81,11 +81,6 @@
       </div>
     </section>
 
-    <!-- HERO IMAGE -->
-    <div class="max-w-6xl mx-auto px-8 pb-0 overflow-hidden rounded-2xl">
-      <img src="./assets/hero.png" alt="Maurilio Atila" class="w-full rounded-2xl shadow-2xl" style="max-height: 480px; object-fit: cover; object-position: center 20%;" />
-    </div>
-
     <!-- DIVIDER with tags -->
     <div class="border-t border-zinc-800 py-5">
       <div class="max-w-6xl mx-auto px-8 flex flex-wrap gap-4 text-xs text-zinc-500 uppercase tracking-widest">
