@@ -83,7 +83,7 @@
 
     <!-- HERO IMAGE -->
     <div class="max-w-6xl mx-auto px-8 pb-0">
-      <img src="./assets/hero.png" alt="Maurilio Atila" class="w-full rounded-2xl shadow-2xl" style="max-height: 480px; object-fit: cover; object-position: center top; mix-blend-mode: multiply;" />
+      <img src="./assets/hero.png" alt="Maurilio Atila" class="w-full rounded-2xl shadow-2xl" style="max-height: 480px; object-fit: cover; object-position: center top;" />
     </div>
 
     <!-- DIVIDER with tags -->
