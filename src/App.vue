@@ -264,9 +264,9 @@ export default {
   name: "App",
   data() {
     return {
-      words: ["products", "a future", "solutions", "experiences", "ideas"],
+      words: ["plans", "projects", "environments", "machines"],
       wordIndex: 0,
-      currentWord: "products",
+      currentWord: "plans",
       wordLoading: false,
       wordTimer: null,
       loading: true,
