@@ -31,13 +31,29 @@
     <nav class="fixed top-0 w-full z-50 bg-black/98 backdrop-blur-sm border-b border-zinc-900">
       <div class="max-w-6xl mx-auto px-8 py-5 flex justify-between items-center">
         <span class="text-sm font-semibold tracking-widest uppercase text-zinc-400">Maurilio Atila</span>
-        <div class="flex gap-8 text-sm text-zinc-500">
+        <!-- Desktop menu -->
+        <div class="hidden md:flex gap-8 text-sm text-zinc-500">
           <a href="#about" class="hover:text-white transition-colors">About</a>
           <a href="#experience" class="hover:text-white transition-colors">Experience</a>
           <a href="#skills" class="hover:text-white transition-colors">Skills</a>
           <a href="#contact" class="hover:text-white transition-colors">Contact</a>
         </div>
+        <!-- Mobile hamburger -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-zinc-400 hover:text-white transition-colors p-1" aria-label="Menu">
+          <i v-if="!mobileMenuOpen" class="fas fa-bars text-lg"></i>
+          <i v-else class="fas fa-xmark text-lg"></i>
+        </button>
       </div>
+      <!-- Mobile dropdown -->
+      <transition name="mobile-menu">
+        <div v-if="mobileMenuOpen" class="md:hidden bg-black border-t border-zinc-900 px-8 py-4 flex flex-col gap-4 text-sm text-zinc-400">
+          <a href="#about" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">About</a>
+          <a href="#experience" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">Experience</a>
+          <a href="#skills" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">Skills</a>
+          <a href="#contact" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">Contact</a>
+          <a href="/maurilio-atila-cv.pdf" download class="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors py-1"><i class="fas fa-download text-xs"></i> Download CV</a>
+        </div>
+      </transition>
     </nav>
 
     <!-- HERO -->
