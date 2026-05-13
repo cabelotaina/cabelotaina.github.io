@@ -157,8 +157,8 @@
           </h2>
           <p class="text-zinc-400 mb-8 text-lg">Part-time freelance · up to 4h/day · Remote or Madrid on-site.</p>
           <div class="flex flex-wrap gap-4">
-            <button @click="showEmailModal = true" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> Send me an email</button>
-            <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <button @click="showEmailModal = true; $gtag('email_button_click')" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> Send me an email</button>
+            <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" @click="$gtag('linkedin_click')" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fab fa-linkedin"></i> LinkedIn</a>
           </div>
         </div>
       </div>
@@ -242,7 +242,7 @@
     </transition>
 
     <!-- WHATSAPP FLOATING BUTTON -->
-    <button @click="showWaModal = true" class="fixed bottom-6 right-6 z-[150] w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group" aria-label="WhatsApp">
+    <button @click="showWaModal = true; $gtag('whatsapp_button_click')" class="fixed bottom-6 right-6 z-[150] w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group" aria-label="WhatsApp">
       <i class="fab fa-whatsapp text-white text-3xl"></i>
       <span class="absolute right-16 bg-zinc-900 border border-zinc-700 text-white text-xs font-semibold px-3 py-1.5 rounded-full whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">Let's talk!</span>
     </button>
@@ -349,6 +349,9 @@ export default {
     clearInterval(this.wordTimer);
   },
   methods: {
+    $gtag(eventName, params = {}) {
+      if (window.gtag) window.gtag('event', eventName, params);
+    },
     async submitEmail() {
       this.emailSending = true;
       this.emailError = '';
@@ -366,6 +369,7 @@ export default {
           'DI5beBFZHP3rS6nGZ'
         );
         this.emailSuccess = true;
+        this.$gtag('email_form_submitted', { name: this.emailLeadName });
         this.emailLeadName = '';
         this.emailLeadEmail = '';
         this.emailLeadMessage = '';
@@ -402,6 +406,7 @@ export default {
       this.leadContact = '';
       this.leadMessage = '';
       this.leadSending = false;
+      this.$gtag('whatsapp_form_submitted');
       window.open(`https://wa.me/34685684314?text=${waText}`, '_blank');
     }
   }
