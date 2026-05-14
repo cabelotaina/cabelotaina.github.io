@@ -76,10 +76,8 @@
           </div>
         </div>
         <div class="md:w-[520px] flex-shrink-0 -mr-8 md:-mr-0">
-          <img @click="showEmailModal = true" src="./assets/hero.png" alt="Maurilio Atila" class="w-full cursor-pointer" title="Send me an email" />
+          <img @click="showEmailModal = true" src="./assets/hero.png" alt="Maurilio Atila" class="w-full cursor-pointer" style="mix-blend-mode: screen;" title="Send me an email" />
         </div>
-      </div>
-    </section>
       </div>
     </section>
 
