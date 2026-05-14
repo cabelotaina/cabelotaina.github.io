@@ -57,9 +57,9 @@
     </nav>
 
     <!-- HERO -->
-    <section class="max-w-6xl mx-auto px-8 pt-40 pb-16">
-      <div class="flex flex-col md:flex-row md:items-center gap-8 md:gap-0">
-        <div class="flex-1 md:pr-8">
+    <section class="max-w-6xl mx-auto px-8 pt-40 pb-28">
+      <div class="flex flex-col md:flex-row md:items-end gap-12">
+        <div class="flex-1">
           <p class="text-xs font-bold uppercase tracking-[0.25em] text-orange-400 mb-6">Full Stack Developer & Tech Lead</p>
           <h1 class="text-7xl md:text-8xl font-black leading-none tracking-tight mb-8">
             Building<br/>
@@ -67,16 +67,16 @@
             <span v-else class="gradient-text word-reveal">{{ currentWord }}</span><br/>
             that scale.
           </h1>
-          <p class="text-zinc-400 text-xl max-w-md leading-relaxed mb-8">
+          <p class="text-zinc-400 text-xl max-w-md leading-relaxed">
             12+ years in web, mobile and cloud. Madrid-based. Available part-time — 4h/day.
           </p>
-          <div class="flex gap-4">
-            <a href="https://github.com/cabelotaina" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-2xl" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-2xl" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          </div>
         </div>
-        <div class="md:w-[520px] flex-shrink-0 -mr-8 md:-mr-0">
-          <img @click="showEmailModal = true" src="./assets/hero.png" alt="Maurilio Atila" class="w-full cursor-pointer" style="mix-blend-mode: screen;" title="Send me an email" />
+        <div class="flex flex-col items-start md:items-end gap-6 md:pb-2">
+          <img @click="showEmailModal = true" src="./assets/logo.png" alt="Maurilio Atila" class="w-28 h-28 rounded-2xl grayscale hover:grayscale-0 transition-all duration-500 shadow-xl cursor-pointer hover:ring-2 hover:ring-orange-500" title="Send me an email" />
+          <div class="flex gap-3">
+            <a href="https://github.com/cabelotaina" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
         </div>
       </div>
     </section>
@@ -114,6 +114,11 @@
     <!-- EXPERIENCE -->
     <section id="experience" class="border-t border-zinc-800 py-24">
       <div class="max-w-6xl mx-auto px-8">
+
+        <!-- Photo banner -->
+        <div class="mb-16 rounded-2xl overflow-hidden">
+          <img src="./assets/hero.png" alt="Maurilio Atila" class="w-full" style="max-height:420px; object-fit:cover; object-position: center 15%;" />
+        </div>
         <div class="grid md:grid-cols-12 gap-8 mb-16">
           <div class="md:col-span-3">
             <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">02 — Experience</p>
