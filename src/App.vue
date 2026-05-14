@@ -317,7 +317,7 @@ export default {
             "Introduced AI-assisted development — trained 3 devs, significantly reduced bug rate",
             "Led 2 major version migrations on Focusme (iOS & Android)",
           ],
-          tech: ["React", "Ionic", "Android", "iOS", "Node.js", "AWS ECS", "Cognito", "TypeScript", "Salesforce"],
+          tech: ["React", "Ionic", "Android", "iOS", "Node.js", "Java", "Spring Boot", "AWS ECS", "Cognito", "TypeScript", "Salesforce"],
         },
         {
           period: "Jan 2021 – Present",
