@@ -117,7 +117,7 @@
 
         <!-- Photo banner -->
         <div class="mb-16 rounded-2xl overflow-hidden">
-          <img src="./assets/hero.png" alt="Maurilio Atila" class="w-full" style="max-height:420px; object-fit:cover; object-position: center 15%;" />
+          <img src="./assets/hero.png" alt="Maurilio Atila" class="w-full block" />
         </div>
         <div class="grid md:grid-cols-12 gap-8 mb-16">
           <div class="md:col-span-3">
