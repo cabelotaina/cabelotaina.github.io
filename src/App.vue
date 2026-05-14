@@ -102,10 +102,10 @@
         </div>
         <div class="md:col-span-9 grid md:grid-cols-2 gap-8 text-zinc-400 text-lg leading-relaxed">
           <p>
-            Brazilian developer living in Madrid with 12+ years across the full stack — Vue.js, React, Node.js, AWS, and native mobile apps (Android & iOS).
+            Brazilian developer based in Madrid with 12+ years across the full stack — Vue.js, React, Node.js, AWS, and native mobile apps (Android &amp; iOS). Three Spanish companies in my track record.
           </p>
           <p>
-            Recently led two international products for <strong class="text-zinc-100 font-semibold">Hoffmann-La Roche</strong> across 26 countries, introduced AI-assisted development, and unblocked a project delayed by over a year.
+            Recently led two international products for <strong class="text-zinc-100 font-semibold">Hoffmann-La Roche</strong> across 26 countries at Madrid-based AMURA IT — introduced AI-assisted development and unblocked a project delayed by over a year.
           </p>
         </div>
       </div>
@@ -305,8 +305,8 @@ export default {
         {
           period: "Dec 2024 – May 2026",
           title: "Project Development Manager & Tech Lead",
-          company: "AMURA IT · Madrid",
-          description: "Led Focusme and Med Wallet for Hoffmann-La Roche across 26 countries. Sole tech architect for a team of 6 developers.",
+          company: "AMURA IT · Madrid 🇪🇸",
+          description: "Spanish consultancy. Led Focusme and Med Wallet for Hoffmann-La Roche across 26 countries. Sole tech architect for a team of 6 developers.",
           bullets: [
             "Unblocked a 1-year-delayed project: Ionic app + AWS ECS API + React frontend + Cognito 2FA",
             "Introduced AI-assisted development — trained 3 devs, significantly reduced bug rate",
@@ -325,8 +325,8 @@ export default {
         {
           period: "Dec 2023 – Nov 2024",
           title: "Android Developer",
-          company: "Winche · Barcelona (Remote)",
-          description: "Lead developer of WincheCloud, a data collection and management platform. Focused on UX improvements and test automation.",
+          company: "Winche · Barcelona 🇪🇸",
+          description: "Spanish SaaS company. Lead developer of WincheCloud, a data collection and management platform. Focused on UX improvements and test automation.",
           bullets: null,
           tech: ["Kotlin", "Java", "Python", "Node.js", "MySQL"],
         },
