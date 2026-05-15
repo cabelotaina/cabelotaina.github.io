@@ -87,6 +87,7 @@
           <div class="flex gap-3">
             <a href="https://github.com/cabelotaina" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-xl" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.malt.es/profile/mauriliosantana1" target="_blank" rel="noopener" class="text-zinc-400 hover:text-white transition-colors text-sm font-bold tracking-wide" aria-label="Malt">Malt</a>
           </div>
         </div>
       </div>
