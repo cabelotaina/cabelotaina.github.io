@@ -19,6 +19,13 @@
           rel="noopener"
           >Github</a
         >
+        <a
+          class="px-1"
+          href="https://www.malt.es/profile/mauriliosantana1"
+          target="_blank"
+          rel="noopener"
+          >Malt</a
+        >
       </h2>
     </div>
     <div class="lg:flex mb-10">
