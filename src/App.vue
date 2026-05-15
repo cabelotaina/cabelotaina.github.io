@@ -33,10 +33,16 @@
         <span class="text-sm font-semibold tracking-widest uppercase text-zinc-400">Maurilio Atila</span>
         <!-- Desktop menu -->
         <div class="hidden md:flex gap-8 text-sm text-zinc-500">
-          <a href="#about" class="hover:text-white transition-colors">About</a>
-          <a href="#experience" class="hover:text-white transition-colors">Experience</a>
-          <a href="#skills" class="hover:text-white transition-colors">Skills</a>
-          <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+          <a href="#about" class="hover:text-white transition-colors">{{ m.nav.about }}</a>
+          <a href="#experience" class="hover:text-white transition-colors">{{ m.nav.experience }}</a>
+          <a href="#skills" class="hover:text-white transition-colors">{{ m.nav.skills }}</a>
+          <a href="#contact" class="hover:text-white transition-colors">{{ m.nav.contact }}</a>
+        </div>
+        <!-- Lang selector -->
+        <div class="flex items-center gap-1 text-xs font-bold">
+          <button v-for="lang in ['en', 'es', 'pt']" :key="lang" @click="setLocale(lang)"
+            :class="locale === lang ? 'text-orange-400' : 'text-zinc-600 hover:text-zinc-400'"
+            class="uppercase tracking-widest transition-colors px-1">{{ lang }}</button>
         </div>
         <!-- Mobile hamburger -->
         <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-zinc-400 hover:text-white transition-colors p-1" aria-label="Menu">
@@ -47,11 +53,16 @@
       <!-- Mobile dropdown -->
       <transition name="mobile-menu">
         <div v-if="mobileMenuOpen" class="md:hidden bg-black border-t border-zinc-900 px-8 py-4 flex flex-col gap-4 text-sm text-zinc-400">
-          <a href="#about" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">About</a>
-          <a href="#experience" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">Experience</a>
-          <a href="#skills" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">Skills</a>
-          <a href="#contact" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">Contact</a>
-          <a href="/maurilio-atila-cv.pdf" download class="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors py-1"><i class="fas fa-download text-xs"></i> Download CV</a>
+          <a href="#about" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">{{ m.nav.about }}</a>
+          <a href="#experience" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">{{ m.nav.experience }}</a>
+          <a href="#skills" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">{{ m.nav.skills }}</a>
+          <a href="#contact" @click="mobileMenuOpen = false" class="hover:text-white transition-colors py-1">{{ m.nav.contact }}</a>
+          <a href="/maurilio-atila-cv.pdf" download class="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 transition-colors py-1"><i class="fas fa-download text-xs"></i> {{ m.nav.downloadCV }}</a>
+          <div class="flex gap-2 pt-1">
+            <button v-for="lang in ['en', 'es', 'pt']" :key="lang" @click="setLocale(lang)"
+              :class="locale === lang ? 'text-orange-400' : 'text-zinc-600'"
+              class="text-xs font-bold uppercase tracking-widest transition-colors">{{ lang }}</button>
+          </div>
         </div>
       </transition>
     </nav>
@@ -60,15 +71,15 @@
     <section class="max-w-6xl mx-auto px-8 pt-40 pb-28">
       <div class="flex flex-col md:flex-row md:items-end gap-12">
         <div class="flex-1">
-          <p class="text-xs font-bold uppercase tracking-[0.25em] text-orange-400 mb-6">Full Stack Developer & Tech Lead</p>
+          <p class="text-xs font-bold uppercase tracking-[0.25em] text-orange-400 mb-6">{{ m.hero.badge }}</p>
           <h1 class="text-7xl md:text-8xl font-black leading-none tracking-tight mb-8">
-            Building<br/>
+            {{ m.hero.pre }}<br/>
             <span v-if="wordLoading" class="word-skeleton inline-block rounded"></span>
             <span v-else class="gradient-text word-reveal">{{ currentWord }}</span><br/>
-            that scale.
+            {{ m.hero.post }}
           </h1>
           <p class="text-zinc-400 text-xl max-w-md leading-relaxed">
-            12+ years in web, mobile and cloud. Madrid-based. Available part-time — 4h/day.
+            {{ m.hero.tagline }}
           </p>
         </div>
         <div class="flex flex-col items-start md:items-end gap-6 md:pb-2">
@@ -86,11 +97,11 @@
       <div class="max-w-6xl mx-auto px-8 flex flex-wrap gap-4 text-xs text-zinc-500 uppercase tracking-widest">
         <span><i class="fas fa-location-dot mr-1.5"></i>Madrid, Spain</span>
         <span class="text-zinc-700">—</span>
-        <span><i class="far fa-clock mr-1.5"></i>Part-time · 4h/day</span>
+        <span><i class="far fa-clock mr-1.5"></i>{{ m.tags.partTime }}</span>
         <span class="text-zinc-700">—</span>
-        <span><i class="fas fa-earth-americas mr-1.5"></i>PT · EN B2 · ES B2</span>
+        <span><i class="fas fa-earth-americas mr-1.5"></i>PT · EN B2 · ES C2</span>
         <span class="text-zinc-700">—</span>
-        <span><i class="fas fa-wifi mr-1.5"></i>Remote</span>
+        <span><i class="fas fa-wifi mr-1.5"></i>{{ m.tags.remote }}</span>
       </div>
     </div>
 
@@ -98,15 +109,11 @@
     <section id="about" class="max-w-6xl mx-auto px-8 py-24">
       <div class="grid md:grid-cols-12 gap-8 items-start">
         <div class="md:col-span-3">
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mt-1">01 — About</p>
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500 mt-1">{{ m.about.label }}</p>
         </div>
         <div class="md:col-span-9 grid md:grid-cols-2 gap-8 text-zinc-400 text-lg leading-relaxed">
-          <p>
-            Brazilian developer based in Madrid with 12+ years across the full stack — Vue.js, React, Node.js, AWS, and native mobile apps (Android &amp; iOS). Three Spanish companies in my track record.
-          </p>
-          <p>
-            Recently led two international products for <strong class="text-zinc-100 font-semibold">Hoffmann-La Roche</strong> across 26 countries at Madrid-based AMURA IT — introduced AI-assisted development and unblocked a project delayed by over a year.
-          </p>
+          <p>{{ m.about.p1 }}</p>
+          <p v-html="m.about.p2"></p>
         </div>
       </div>
     </section>
@@ -121,11 +128,11 @@
         </div>
         <div class="grid md:grid-cols-12 gap-8 mb-16">
           <div class="md:col-span-3">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">02 — Experience</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">{{ m.experience.label }}</p>
           </div>
         </div>
 
-        <div v-for="(job, i) in jobs" :key="i" class="grid md:grid-cols-12 gap-8 py-10 border-t border-zinc-800 group">
+        <div v-for="(job, i) in m.jobs" :key="i" class="grid md:grid-cols-12 gap-8 py-10 border-t border-zinc-800 group">
           <div class="md:col-span-3">
             <p class="text-xs text-zinc-600 font-mono mt-1">{{ job.period }}</p>
           </div>
@@ -152,11 +159,11 @@
       <div class="max-w-6xl mx-auto px-8">
         <div class="grid md:grid-cols-12 gap-8 mb-16">
           <div class="md:col-span-3">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">03 — Skills</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">{{ m.skillsSection.label }}</p>
           </div>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
-          <div v-for="group in skills" :key="group.label" class="bg-black p-8">
+          <div v-for="group in m.skills" :key="group.label" class="bg-black p-8">
             <p class="text-xs font-bold uppercase tracking-[0.2em] text-orange-400 mb-5">{{ group.label }}</p>
             <div class="flex flex-wrap gap-2">
               <span v-for="s in group.items" :key="s" class="text-sm text-zinc-400 hover:text-white transition-colors cursor-default">{{ s }}</span>
@@ -170,16 +177,16 @@
     <section id="contact" class="border-t border-zinc-800 py-24">
       <div class="max-w-6xl mx-auto px-8 grid md:grid-cols-12 gap-8 items-center">
         <div class="md:col-span-3">
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">04 — Contact</p>
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">{{ m.contact.label }}</p>
         </div>
         <div class="md:col-span-9">
           <h2 class="text-5xl font-black mb-6 leading-tight">
-            Let's work<br/><span class="gradient-text">together.</span>
+            {{ m.contact.h2a }}<br/><span class="gradient-text">{{ m.contact.h2b }}</span>
           </h2>
-          <p class="text-zinc-400 mb-8 text-lg">Part-time freelance · up to 4h/day · Remote or Madrid on-site.</p>
+          <p class="text-zinc-400 mb-8 text-lg">{{ m.contact.sub }}</p>
           <div class="flex flex-wrap gap-4">
-            <button @click="showEmailModal = true; $gtag('email_button_click')" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> Send me an email</button>
-            <a href="/maurilio-atila-cv.pdf" download="maurilio-atila-cv.pdf" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fas fa-download"></i> Download CV</a>
+            <button @click="showEmailModal = true; $gtag('email_button_click')" class="inline-flex items-center gap-2 bg-orange-500 text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-orange-400 transition-colors"><i class="fas fa-envelope"></i> {{ m.contact.emailBtn }}</button>
+            <a href="/maurilio-atila-cv.pdf" download="maurilio-atila-cv.pdf" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fas fa-download"></i> {{ m.contact.cvBtn }}</a>
             <a href="https://www.linkedin.com/in/maurilio-atila/" target="_blank" rel="noopener" @click="$gtag('linkedin_click')" class="inline-flex items-center gap-2 border border-zinc-700 text-zinc-400 font-semibold px-6 py-3 rounded-full text-sm hover:border-zinc-500 hover:text-zinc-200 transition-colors"><i class="fab fa-linkedin"></i> LinkedIn</a>
           </div>
         </div>
@@ -197,28 +204,28 @@
               <i class="fas fa-envelope text-white text-lg"></i>
             </div>
             <div>
-              <p class="font-bold text-white text-sm">Send me an email</p>
-              <p class="text-zinc-500 text-xs">I'll reply within 24h</p>
+              <p class="font-bold text-white text-sm">{{ m.emailModal.title }}</p>
+              <p class="text-zinc-500 text-xs">{{ m.emailModal.sub }}</p>
             </div>
           </div>
           <form @submit.prevent="submitEmail" class="space-y-4">
             <div>
-              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Name *</label>
-              <input v-model="emailLeadName" type="text" required placeholder="Your name" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">{{ m.emailModal.name }}</label>
+              <input v-model="emailLeadName" type="text" required :placeholder="m.emailModal.pName" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
             </div>
             <div>
-              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Your email *</label>
-              <input v-model="emailLeadEmail" type="email" required placeholder="your@email.com" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">{{ m.emailModal.email }}</label>
+              <input v-model="emailLeadEmail" type="email" required :placeholder="m.emailModal.pEmail" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
             </div>
             <div>
-              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Message *</label>
-              <textarea v-model="emailLeadMessage" rows="3" required placeholder="Tell me about your project..." class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors resize-none"></textarea>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">{{ m.emailModal.message }}</label>
+              <textarea v-model="emailLeadMessage" rows="3" required :placeholder="m.emailModal.pMessage" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors resize-none"></textarea>
             </div>
             <button type="submit" :disabled="emailSending" class="w-full bg-orange-500 hover:bg-orange-400 disabled:opacity-50 disabled:cursor-wait text-white font-bold py-3 rounded-full text-sm transition-colors flex items-center justify-center gap-2">
-              <span v-if="emailSending">Sending...</span>
-              <span v-else>Send message →</span>
+              <span v-if="emailSending">{{ m.emailModal.sending }}</span>
+              <span v-else>{{ m.emailModal.send }}</span>
             </button>
-            <p v-if="emailSuccess" class="text-green-400 text-xs text-center"><i class="fas fa-check mr-1"></i>Message sent! I'll be in touch soon.</p>
+            <p v-if="emailSuccess" class="text-green-400 text-xs text-center"><i class="fas fa-check mr-1"></i>{{ m.emailModal.success }}</p>
             <p v-if="emailError" class="text-red-400 text-xs text-center">{{ emailError }}</p>
           </form>
         </div>
@@ -236,26 +243,26 @@
               <i class="fab fa-whatsapp text-white text-2xl"></i>
             </div>
             <div>
-              <p class="font-bold text-white text-sm">Chat with me on WhatsApp</p>
-              <p class="text-zinc-500 text-xs">I'll reply within 24h</p>
+              <p class="font-bold text-white text-sm">{{ m.waModal.title }}</p>
+              <p class="text-zinc-500 text-xs">{{ m.waModal.sub }}</p>
             </div>
           </div>
           <form @submit.prevent="submitLead" class="space-y-4">
             <div>
-              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Name *</label>
-              <input v-model="leadName" type="text" required placeholder="Your name" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">{{ m.waModal.name }}</label>
+              <input v-model="leadName" type="text" required :placeholder="m.waModal.pName" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
             </div>
             <div>
-              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Email or phone *</label>
-              <input v-model="leadContact" type="text" required placeholder="email@example.com or +34 600 000 000" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">{{ m.waModal.contact }}</label>
+              <input v-model="leadContact" type="text" required :placeholder="m.waModal.pContact" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors" />
             </div>
             <div>
-              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">Message (optional)</label>
-              <textarea v-model="leadMessage" rows="2" placeholder="What's the project about?" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors resize-none"></textarea>
+              <label class="text-xs text-zinc-400 uppercase tracking-widest block mb-1">{{ m.waModal.message }}</label>
+              <textarea v-model="leadMessage" rows="2" :placeholder="m.waModal.pMessage" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white placeholder-zinc-600 text-sm focus:border-orange-500 focus:outline-none transition-colors resize-none"></textarea>
             </div>
             <button type="submit" :disabled="leadSending" class="w-full bg-green-500 hover:bg-green-400 disabled:opacity-50 disabled:cursor-wait text-white font-bold py-3 rounded-full text-sm transition-colors flex items-center justify-center gap-2">
-              <span v-if="leadSending">Sending...</span>
-              <span v-else>Continue on WhatsApp →</span>
+              <span v-if="leadSending">{{ m.waModal.sending }}</span>
+              <span v-else>{{ m.waModal.send }}</span>
             </button>
             <p v-if="leadError" class="text-red-400 text-xs text-center">{{ leadError }}</p>
           </form>
@@ -266,7 +273,7 @@
     <!-- WHATSAPP FLOATING BUTTON -->
     <button @click="showWaModal = true; $gtag('whatsapp_button_click')" class="fixed bottom-6 right-6 z-[150] w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 group" aria-label="WhatsApp">
       <i class="fab fa-whatsapp text-white text-3xl"></i>
-      <span class="absolute right-16 bg-zinc-900 border border-zinc-700 text-white text-xs font-semibold px-3 py-1.5 rounded-full whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">Let's talk!</span>
+      <span class="absolute right-16 bg-zinc-900 border border-zinc-700 text-white text-xs font-semibold px-3 py-1.5 rounded-full whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">{{ m.floatingBtn }}</span>
     </button>
 
     <footer class="border-t border-zinc-800 py-8">
@@ -282,11 +289,281 @@
 <script>
 import emailjs from '@emailjs/browser';
 
+const MESSAGES = {
+  en: {
+    nav: { about: 'About', experience: 'Experience', skills: 'Skills', contact: 'Contact', downloadCV: 'Download CV' },
+    hero: {
+      badge: 'Full Stack Developer & Tech Lead',
+      pre: 'Building',
+      post: 'that scale.',
+      tagline: '12+ years in web, mobile and cloud. Madrid-based. Available part-time — 4h/day.',
+      words: ["plans", "projects", "environments", "machines", "products", "a future", "solutions", "experiences", "ideas"],
+    },
+    tags: { partTime: 'Part-time · 4h/day', remote: 'Remote' },
+    about: {
+      label: '01 — About',
+      p1: 'Brazilian developer based in Madrid with 12+ years across the full stack — Vue.js, React, Node.js, AWS, and native mobile apps (Android & iOS). Three Spanish companies in my track record.',
+      p2: 'Recently led two international products for <strong class="text-zinc-100 font-semibold">Hoffmann-La Roche</strong> across 26 countries at Madrid-based AMURA IT — introduced AI-assisted development and unblocked a project delayed by over a year.',
+    },
+    experience: { label: '02 — Experience' },
+    skillsSection: { label: '03 — Skills' },
+    contact: {
+      label: '04 — Contact',
+      h2a: "Let's work",
+      h2b: 'together.',
+      sub: 'Part-time freelance · up to 4h/day · Remote or Madrid on-site.',
+      emailBtn: 'Send me an email',
+      cvBtn: 'Download CV',
+    },
+    emailModal: {
+      title: 'Send me an email',
+      sub: "I'll reply within 24h",
+      name: 'Name *', email: 'Your email *', message: 'Message *',
+      pName: 'Your name', pEmail: 'your@email.com', pMessage: 'Tell me about your project...',
+      sending: 'Sending...', send: 'Send message →',
+      success: "Message sent! I'll be in touch soon.",
+      error: 'Failed to send. Please try LinkedIn instead.',
+    },
+    waModal: {
+      title: 'Chat with me on WhatsApp',
+      sub: "I'll reply within 24h",
+      name: 'Name *', contact: 'Email or phone *', message: 'Message (optional)',
+      pName: 'Your name', pContact: 'email@example.com or +34 600 000 000', pMessage: "What's the project about?",
+      sending: 'Sending...', send: 'Continue on WhatsApp →',
+    },
+    floatingBtn: "Let's talk!",
+    skills: [
+      { label: 'Frontend', items: ['Vue.js 2/3', 'React', 'Angular', 'Nuxt', 'Tailwind CSS', 'HTML5', 'SASS'] },
+      { label: 'Backend', items: ['Node.js', 'Express', 'REST APIs', 'AWS Lambda', 'Ruby on Rails', 'PHP', 'Python'] },
+      { label: 'Mobile', items: ['Android (Kotlin/Java)', 'iOS', 'Ionic', 'Cordova', 'React Native'] },
+      { label: 'Cloud & DevOps', items: ['AWS ECS', 'Lambda', 'S3', 'Cognito', 'CloudFormation', 'Docker', 'GitHub Actions'] },
+      { label: 'Databases', items: ['MongoDB', 'PostgreSQL', 'MySQL'] },
+      { label: 'Leadership', items: ['Tech Lead', 'AI Training', 'Agile/Jira', 'Code Review', 'Remote Teams'] },
+    ],
+    jobs: [
+      {
+        period: "Dec 2024 – May 2026",
+        title: "Project Development Manager & Tech Lead",
+        company: "AMURA IT · Madrid 🇪🇸",
+        description: "Spanish consultancy. Led Focusme and Med Wallet for Hoffmann-La Roche across 26 countries. Sole tech architect for a team of 6 developers.",
+        bullets: [
+          "Unblocked a 1-year-delayed project: Ionic app + AWS ECS API + React frontend + Cognito 2FA",
+          "Introduced AI-assisted development — trained 3 devs, significantly reduced bug rate",
+          "Led 2 major version migrations on Focusme (iOS & Android)",
+        ],
+        tech: ["React", "Ionic", "Android", "iOS", "Node.js", "Java", "Spring Boot", "AWS ECS", "Cognito", "TypeScript", "Salesforce"],
+      },
+      {
+        period: "Jan 2021 – Present",
+        title: "Co-Owner & Full Stack Developer",
+        company: "BCompliance&Law · São Paulo (Remote)",
+        description: "Built a full SaaS compliance suite from scratch: institutional site, client portal, backoffice, and complaint channel. Payment integration (Vindi) and CI/CD via GitHub Actions + AWS CloudFormation.",
+        bullets: null,
+        tech: ["Vue.js 3", "Node.js", "MongoDB", "PostgreSQL", "Tailwind", "AWS", "GitHub Actions"],
+      },
+      {
+        period: "Dec 2023 – Nov 2024",
+        title: "Android Developer",
+        company: "Winche · Barcelona 🇪🇸",
+        description: "Spanish SaaS company. Lead developer of WincheCloud, a data collection and management platform. Focused on UX improvements and test automation.",
+        bullets: null,
+        tech: ["Kotlin", "Java", "Python", "Node.js", "MySQL"],
+      },
+      {
+        period: "May 2019 – Oct 2022",
+        title: "Mobile Developer",
+        company: "Estapar · Remote",
+        description: "Optimized Google Maps API usage saving ~R$40k/month. Delivered Ecovagas and Estapar Reserva — apps used by millions of users. Implemented CI/CD pipelines.",
+        bullets: null,
+        tech: ["Ionic", "Cordova", "CI/CD"],
+      },
+    ],
+  },
+  es: {
+    nav: { about: 'Sobre mí', experience: 'Experiencia', skills: 'Habilidades', contact: 'Contacto', downloadCV: 'Descargar CV' },
+    hero: {
+      badge: 'Full Stack Developer & Tech Lead',
+      pre: 'Construyendo',
+      post: 'que escalan.',
+      tagline: '12+ años en web, móvil y cloud. Afincado en Madrid. Disponible a tiempo parcial — 4h/día.',
+      words: ["planes", "proyectos", "entornos", "sistemas", "productos", "el futuro", "soluciones", "experiencias", "ideas"],
+    },
+    tags: { partTime: 'Tiempo parcial · 4h/día', remote: 'Remoto' },
+    about: {
+      label: '01 — Sobre mí',
+      p1: 'Desarrollador brasileño afincado en Madrid con más de 12 años en el stack completo — Vue.js, React, Node.js, AWS y apps móviles nativas (Android e iOS). Tres empresas españolas en mi historial.',
+      p2: 'Lideré recientemente dos productos internacionales para <strong class="text-zinc-100 font-semibold">Hoffmann-La Roche</strong> en 26 países en AMURA IT (Madrid) — introduje desarrollo asistido por IA y desbloqueé un proyecto retrasado más de un año.',
+    },
+    experience: { label: '02 — Experiencia' },
+    skillsSection: { label: '03 — Habilidades' },
+    contact: {
+      label: '04 — Contacto',
+      h2a: 'Trabajemos',
+      h2b: 'juntos.',
+      sub: 'Freelance a tiempo parcial · hasta 4h/día · Remoto o presencial en Madrid.',
+      emailBtn: 'Envíame un email',
+      cvBtn: 'Descargar CV',
+    },
+    emailModal: {
+      title: 'Envíame un email',
+      sub: 'Respondo en menos de 24h',
+      name: 'Nombre *', email: 'Tu email *', message: 'Mensaje *',
+      pName: 'Tu nombre', pEmail: 'tu@email.com', pMessage: 'Cuéntame sobre tu proyecto...',
+      sending: 'Enviando...', send: 'Enviar mensaje →',
+      success: '¡Mensaje enviado! Me pondré en contacto pronto.',
+      error: 'Error al enviar. Prueba por LinkedIn.',
+    },
+    waModal: {
+      title: 'Escríbeme por WhatsApp',
+      sub: 'Respondo en menos de 24h',
+      name: 'Nombre *', contact: 'Email o teléfono *', message: 'Mensaje (opcional)',
+      pName: 'Tu nombre', pContact: 'email@ejemplo.com o +34 600 000 000', pMessage: '¿De qué trata el proyecto?',
+      sending: 'Enviando...', send: 'Continuar en WhatsApp →',
+    },
+    floatingBtn: '¡Hablemos!',
+    skills: [
+      { label: 'Frontend', items: ['Vue.js 2/3', 'React', 'Angular', 'Nuxt', 'Tailwind CSS', 'HTML5', 'SASS'] },
+      { label: 'Backend', items: ['Node.js', 'Express', 'REST APIs', 'AWS Lambda', 'Ruby on Rails', 'PHP', 'Python'] },
+      { label: 'Móvil', items: ['Android (Kotlin/Java)', 'iOS', 'Ionic', 'Cordova', 'React Native'] },
+      { label: 'Cloud & DevOps', items: ['AWS ECS', 'Lambda', 'S3', 'Cognito', 'CloudFormation', 'Docker', 'GitHub Actions'] },
+      { label: 'Bases de datos', items: ['MongoDB', 'PostgreSQL', 'MySQL'] },
+      { label: 'Liderazgo', items: ['Tech Lead', 'IA aplicada', 'Agile/Jira', 'Code Review', 'Equipos remotos'] },
+    ],
+    jobs: [
+      {
+        period: "Dic 2024 – May 2026",
+        title: "Project Development Manager & Tech Lead",
+        company: "AMURA IT · Madrid 🇪🇸",
+        description: "Consultora española. Lideré Focusme y Med Wallet para Hoffmann-La Roche en 26 países. Único arquitecto técnico de un equipo de 6 desarrolladores.",
+        bullets: [
+          "Desbloqueé un proyecto retrasado 1 año: app Ionic + API en AWS ECS + frontend React + Cognito 2FA",
+          "Introduje desarrollo asistido por IA — formé a 3 devs, reducción significativa de bugs",
+          "Lideré 2 migraciones de versiones mayores en Focusme (iOS y Android)",
+        ],
+        tech: ["React", "Ionic", "Android", "iOS", "Node.js", "Java", "Spring Boot", "AWS ECS", "Cognito", "TypeScript", "Salesforce"],
+      },
+      {
+        period: "Ene 2021 – Presente",
+        title: "Co-Fundador & Full Stack Developer",
+        company: "BCompliance&Law · São Paulo (Remoto)",
+        description: "Construí desde cero una suite SaaS de cumplimiento normativo: web institucional, portal de clientes, backoffice y canal de denuncias. Integración de pagos (Vindi) y CI/CD con GitHub Actions + AWS CloudFormation.",
+        bullets: null,
+        tech: ["Vue.js 3", "Node.js", "MongoDB", "PostgreSQL", "Tailwind", "AWS", "GitHub Actions"],
+      },
+      {
+        period: "Dic 2023 – Nov 2024",
+        title: "Desarrollador Android",
+        company: "Winche · Barcelona 🇪🇸",
+        description: "Empresa SaaS española. Desarrollador líder de WincheCloud, plataforma de recogida y gestión de datos. Mejoras de UX y automatización de pruebas.",
+        bullets: null,
+        tech: ["Kotlin", "Java", "Python", "Node.js", "MySQL"],
+      },
+      {
+        period: "May 2019 – Oct 2022",
+        title: "Desarrollador Mobile",
+        company: "Estapar · Remoto",
+        description: "Optimicé el uso de la API de Google Maps ahorrando ~R$40k/mes. Entregué Ecovagas y Estapar Reserva — apps usadas por millones de usuarios. Implementé pipelines CI/CD.",
+        bullets: null,
+        tech: ["Ionic", "Cordova", "CI/CD"],
+      },
+    ],
+  },
+  pt: {
+    nav: { about: 'Sobre', experience: 'Experiência', skills: 'Habilidades', contact: 'Contato', downloadCV: 'Baixar CV' },
+    hero: {
+      badge: 'Full Stack Developer & Tech Lead',
+      pre: 'Construindo',
+      post: 'que escalam.',
+      tagline: '12+ anos em web, mobile e cloud. Baseado em Madrid. Disponível meio período — 4h/dia.',
+      words: ["planos", "projetos", "ambientes", "sistemas", "produtos", "o futuro", "soluções", "experiências", "ideias"],
+    },
+    tags: { partTime: 'Meio período · 4h/dia', remote: 'Remoto' },
+    about: {
+      label: '01 — Sobre',
+      p1: 'Desenvolvedor brasileiro radicado em Madrid com 12+ anos no stack completo — Vue.js, React, Node.js, AWS e apps mobile nativos (Android e iOS). Três empresas espanholas no histórico.',
+      p2: 'Recentemente liderou dois produtos internacionais para a <strong class="text-zinc-100 font-semibold">Hoffmann-La Roche</strong> em 26 países na AMURA IT (Madrid) — introduziu desenvolvimento assistido por IA e desbloqueou um projeto atrasado por mais de um ano.',
+    },
+    experience: { label: '02 — Experiência' },
+    skillsSection: { label: '03 — Habilidades' },
+    contact: {
+      label: '04 — Contato',
+      h2a: 'Vamos trabalhar',
+      h2b: 'juntos.',
+      sub: 'Freelance meio período · até 4h/dia · Remoto ou presencial em Madrid.',
+      emailBtn: 'Enviar email',
+      cvBtn: 'Baixar CV',
+    },
+    emailModal: {
+      title: 'Enviar email',
+      sub: 'Respondo em até 24h',
+      name: 'Nome *', email: 'Seu email *', message: 'Mensagem *',
+      pName: 'Seu nome', pEmail: 'seu@email.com', pMessage: 'Me fale sobre o projeto...',
+      sending: 'Enviando...', send: 'Enviar mensagem →',
+      success: 'Mensagem enviada! Entro em contato em breve.',
+      error: 'Erro ao enviar. Tente pelo LinkedIn.',
+    },
+    waModal: {
+      title: 'Fale comigo pelo WhatsApp',
+      sub: 'Respondo em até 24h',
+      name: 'Nome *', contact: 'Email ou telefone *', message: 'Mensagem (opcional)',
+      pName: 'Seu nome', pContact: 'email@exemplo.com ou +34 600 000 000', pMessage: 'Sobre o que é o projeto?',
+      sending: 'Enviando...', send: 'Continuar no WhatsApp →',
+    },
+    floatingBtn: 'Vamos conversar!',
+    skills: [
+      { label: 'Frontend', items: ['Vue.js 2/3', 'React', 'Angular', 'Nuxt', 'Tailwind CSS', 'HTML5', 'SASS'] },
+      { label: 'Backend', items: ['Node.js', 'Express', 'REST APIs', 'AWS Lambda', 'Ruby on Rails', 'PHP', 'Python'] },
+      { label: 'Mobile', items: ['Android (Kotlin/Java)', 'iOS', 'Ionic', 'Cordova', 'React Native'] },
+      { label: 'Cloud & DevOps', items: ['AWS ECS', 'Lambda', 'S3', 'Cognito', 'CloudFormation', 'Docker', 'GitHub Actions'] },
+      { label: 'Bancos de dados', items: ['MongoDB', 'PostgreSQL', 'MySQL'] },
+      { label: 'Liderança', items: ['Tech Lead', 'IA aplicada', 'Agile/Jira', 'Code Review', 'Times remotos'] },
+    ],
+    jobs: [
+      {
+        period: "Dez 2024 – Mai 2026",
+        title: "Project Development Manager & Tech Lead",
+        company: "AMURA IT · Madrid 🇪🇸",
+        description: "Consultoria espanhola. Liderou Focusme e Med Wallet para a Hoffmann-La Roche em 26 países. Único arquiteto técnico de uma equipe de 6 desenvolvedores.",
+        bullets: [
+          "Desbloqueou projeto atrasado por 1 ano: app Ionic + API no AWS ECS + frontend React + Cognito 2FA",
+          "Introduziu desenvolvimento assistido por IA — treinou 3 devs, redução significativa de bugs",
+          "Liderou 2 migrações de versões maiores no Focusme (iOS e Android)",
+        ],
+        tech: ["React", "Ionic", "Android", "iOS", "Node.js", "Java", "Spring Boot", "AWS ECS", "Cognito", "TypeScript", "Salesforce"],
+      },
+      {
+        period: "Jan 2021 – Presente",
+        title: "Co-Fundador & Full Stack Developer",
+        company: "BCompliance&Law · São Paulo (Remoto)",
+        description: "Construiu do zero uma suite SaaS de compliance: site institucional, portal do cliente, backoffice e canal de denúncias. Integração de pagamentos (Vindi) e CI/CD com GitHub Actions + AWS CloudFormation.",
+        bullets: null,
+        tech: ["Vue.js 3", "Node.js", "MongoDB", "PostgreSQL", "Tailwind", "AWS", "GitHub Actions"],
+      },
+      {
+        period: "Dez 2023 – Nov 2024",
+        title: "Desenvolvedor Android",
+        company: "Winche · Barcelona 🇪🇸",
+        description: "Empresa SaaS espanhola. Desenvolvedor líder do WincheCloud, plataforma de coleta e gestão de dados. Foco em melhorias de UX e automação de testes.",
+        bullets: null,
+        tech: ["Kotlin", "Java", "Python", "Node.js", "MySQL"],
+      },
+      {
+        period: "Mai 2019 – Out 2022",
+        title: "Desenvolvedor Mobile",
+        company: "Estapar · Remoto",
+        description: "Otimizou o uso da API do Google Maps economizando ~R$40k/mês. Entregou Ecovagas e Estapar Reserva — apps usados por milhões de usuários. Implementou pipelines CI/CD.",
+        bullets: null,
+        tech: ["Ionic", "Cordova", "CI/CD"],
+      },
+    ],
+  },
+};
+
 export default {
   name: "App",
   data() {
     return {
-      words: ["plans", "projects", "environments", "machines", "products", "a future", "solutions", "experiences", "ideas"],
+      locale: 'en',
       wordIndex: 0,
       currentWord: "plans",
       wordLoading: false,
@@ -306,53 +583,16 @@ export default {
       emailSending: false,
       emailSuccess: false,
       emailError: '',
-      jobs: [
-        {
-          period: "Dec 2024 – May 2026",
-          title: "Project Development Manager & Tech Lead",
-          company: "AMURA IT · Madrid 🇪🇸",
-          description: "Spanish consultancy. Led Focusme and Med Wallet for Hoffmann-La Roche across 26 countries. Sole tech architect for a team of 6 developers.",
-          bullets: [
-            "Unblocked a 1-year-delayed project: Ionic app + AWS ECS API + React frontend + Cognito 2FA",
-            "Introduced AI-assisted development — trained 3 devs, significantly reduced bug rate",
-            "Led 2 major version migrations on Focusme (iOS & Android)",
-          ],
-          tech: ["React", "Ionic", "Android", "iOS", "Node.js", "Java", "Spring Boot", "AWS ECS", "Cognito", "TypeScript", "Salesforce"],
-        },
-        {
-          period: "Jan 2021 – Present",
-          title: "Co-Owner & Full Stack Developer",
-          company: "BCompliance&Law · São Paulo (Remote)",
-          description: "Built a full SaaS compliance suite from scratch: institutional site, client portal, backoffice, and complaint channel. Payment integration (Vindi) and CI/CD via GitHub Actions + AWS CloudFormation.",
-          bullets: null,
-          tech: ["Vue.js 3", "Node.js", "MongoDB", "PostgreSQL", "Tailwind", "AWS", "GitHub Actions"],
-        },
-        {
-          period: "Dec 2023 – Nov 2024",
-          title: "Android Developer",
-          company: "Winche · Barcelona 🇪🇸",
-          description: "Spanish SaaS company. Lead developer of WincheCloud, a data collection and management platform. Focused on UX improvements and test automation.",
-          bullets: null,
-          tech: ["Kotlin", "Java", "Python", "Node.js", "MySQL"],
-        },
-        {
-          period: "May 2019 – Oct 2022",
-          title: "Mobile Developer",
-          company: "Estapar · Remote",
-          description: "Optimized Google Maps API usage saving ~R$40k/month. Delivered Ecovagas and Estapar Reserva — apps used by millions of users. Implemented CI/CD pipelines.",
-          bullets: null,
-          tech: ["Ionic", "Cordova", "CI/CD"],
-        },
-      ],
-      skills: [
-        { label: "Frontend", items: ["Vue.js 2/3", "React", "Angular", "Nuxt", "Tailwind CSS", "HTML5", "SASS"] },
-        { label: "Backend", items: ["Node.js", "Express", "REST APIs", "AWS Lambda", "Ruby on Rails", "PHP", "Python"] },
-        { label: "Mobile", items: ["Android (Kotlin/Java)", "iOS", "Ionic", "Cordova", "React Native"] },
-        { label: "Cloud & DevOps", items: ["AWS ECS", "Lambda", "S3", "Cognito", "CloudFormation", "Docker", "GitHub Actions"] },
-        { label: "Databases", items: ["MongoDB", "PostgreSQL", "MySQL"] },
-        { label: "Leadership", items: ["Tech Lead", "AI Training", "Agile/Jira", "Code Review", "Remote Teams"] },
-      ]
     }
+  },
+  computed: {
+    m() { return MESSAGES[this.locale]; },
+  },
+  watch: {
+    locale(newLocale) {
+      this.wordIndex = 0;
+      this.currentWord = MESSAGES[newLocale].hero.words[0];
+    },
   },
   mounted() {
     setTimeout(() => {
@@ -362,8 +602,8 @@ export default {
     this.wordTimer = setInterval(() => {
       this.wordLoading = true;
       setTimeout(() => {
-        this.wordIndex = (this.wordIndex + 1) % this.words.length;
-        this.currentWord = this.words[this.wordIndex];
+        this.wordIndex = (this.wordIndex + 1) % this.m.hero.words.length;
+        this.currentWord = this.m.hero.words[this.wordIndex];
         this.wordLoading = false;
       }, 700);
     }, 4000);
@@ -372,6 +612,10 @@ export default {
     clearInterval(this.wordTimer);
   },
   methods: {
+    setLocale(lang) {
+      this.locale = lang;
+      this.mobileMenuOpen = false;
+    },
     $gtag(eventName, params = {}) {
       if (window.gtag) window.gtag('event', eventName, params);
     },
@@ -398,7 +642,7 @@ export default {
         this.emailLeadMessage = '';
         setTimeout(() => { this.showEmailModal = false; this.emailSuccess = false; }, 2500);
       } catch (e) {
-        this.emailError = 'Failed to send. Please try LinkedIn instead.';
+        this.emailError = this.m.emailModal.error;
       }
       this.emailSending = false;
     },
