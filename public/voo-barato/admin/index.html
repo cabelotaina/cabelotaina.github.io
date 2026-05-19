@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voo Barato — Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body class="min-h-screen bg-gray-900 text-white font-sans">
+
+  <!-- Login -->
+  <div id="login-screen" class="flex items-center justify-center min-h-screen">
+    <div class="bg-gray-800 rounded-xl p-8 w-full max-w-sm shadow-lg">
+      <h1 class="text-xl font-bold mb-4 text-center">🔒 Admin — Voo Barato</h1>
+      <input
+        id="admin-key"
+        type="password"
+        placeholder="Admin key"
+        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-sm mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+      <button
+        id="login-btn"
+        onclick="loadData()"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 rounded-lg px-4 py-3 font-semibold transition"
+      >
+        Entrar
+      </button>
+      <p id="login-error" class="text-red-400 text-sm text-center mt-3 hidden">Chave inválida</p>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden">
+    <header class="bg-gray-800 px-6 py-4 flex justify-between items-center border-b border-gray-700">
+      <h1 class="text-lg font-bold">✈️ Voo Barato — Dashboard</h1>
+      <button onclick="logout()" class="text-sm text-gray-400 hover:text-white">Sair</button>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-8 space-y-8">
+      <!-- KPIs -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-gray-800 rounded-xl p-6 text-center">
+          <p class="text-3xl font-bold text-indigo-400" id="kpi-total">—</p>
+          <p class="text-sm text-gray-400 mt-1">Total inscritos</p>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-6 text-center">
+          <p class="text-3xl font-bold text-green-400" id="kpi-today">—</p>
+          <p class="text-sm text-gray-400 mt-1">Hoje</p>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-6 text-center">
+          <p class="text-3xl font-bold text-yellow-400" id="kpi-goal">—/50</p>
+          <p class="text-sm text-gray-400 mt-1">Meta (50)</p>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="bg-gray-800 rounded-xl p-6">
+        <div class="flex justify-between text-sm text-gray-400 mb-2">
+          <span>Progresso para meta</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="w-full bg-gray-700 rounded-full h-4">
+          <div id="progress-bar" class="bg-indigo-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="bg-gray-800 rounded-xl p-6">
+        <h2 class="text-sm font-semibold text-gray-400 mb-4">Inscrições por dia</h2>
+        <canvas id="chart" height="80"></canvas>
+      </div>
+
+      <!-- Top routes -->
+      <div class="bg-gray-800 rounded-xl p-6">
+        <h2 class="text-sm font-semibold text-gray-400 mb-4">Rotas mais pedidas</h2>
+        <div id="routes-list" class="space-y-2"></div>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-gray-800 rounded-xl p-6 overflow-x-auto">
+        <h2 class="text-sm font-semibold text-gray-400 mb-4">Lista completa</h2>
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-gray-400 border-b border-gray-700">
+              <th class="pb-2">Nome</th>
+              <th class="pb-2">Email</th>
+              <th class="pb-2">Telefone</th>
+              <th class="pb-2">Origem</th>
+              <th class="pb-2">Destino</th>
+              <th class="pb-2">Data</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const API_URL = 'https://c46g8v07jg.execute-api.eu-west-1.amazonaws.com/Prod'
+    let chart = null
+
+    async function loadData() {
+      const key = document.getElementById('admin-key').value.trim()
+      if (!key) return
+
+      try {
+        const res = await fetch(`${API_URL}/admin/waitlist`, {
+          headers: { 'X-Admin-Key': key }
+        })
+
+        if (res.status === 401) {
+          document.getElementById('login-error').classList.remove('hidden')
+          return
+        }
+
+        const data = await res.json()
+        localStorage.setItem('vb-admin-key', key)
+        renderDashboard(data)
+      } catch (err) {
+        document.getElementById('login-error').textContent = 'Erro de conexão'
+        document.getElementById('login-error').classList.remove('hidden')
+      }
+    }
+
+    function renderDashboard(data) {
+      document.getElementById('login-screen').classList.add('hidden')
+      document.getElementById('dashboard').classList.remove('hidden')
+
+      const items = data.items.sort((a, b) => (a.createdAt || '').localeCompare(b.createdAt || ''))
+      const total = items.length
+      const today = new Date().toISOString().slice(0, 10)
+      const todayCount = items.filter(i => (i.createdAt || '').startsWith(today)).length
+
+      // KPIs
+      document.getElementById('kpi-total').textContent = total
+      document.getElementById('kpi-today').textContent = todayCount
+      document.getElementById('kpi-goal').textContent = `${total}/50`
+
+      // Progress
+      const pct = Math.min(100, Math.round((total / 50) * 100))
+      document.getElementById('progress-pct').textContent = `${pct}%`
+      document.getElementById('progress-bar').style.width = `${pct}%`
+
+      // Chart - signups per day
+      const byDay = {}
+      items.forEach(item => {
+        const day = (item.createdAt || '').slice(0, 10)
+        if (day) byDay[day] = (byDay[day] || 0) + 1
+      })
+      const days = Object.keys(byDay).sort()
+      const counts = days.map(d => byDay[d])
+
+      // Cumulative
+      let cumulative = []
+      let sum = 0
+      counts.forEach(c => { sum += c; cumulative.push(sum) })
+
+      if (chart) chart.destroy()
+      chart = new Chart(document.getElementById('chart'), {
+        type: 'bar',
+        data: {
+          labels: days,
+          datasets: [
+            {
+              label: 'Por dia',
+              data: counts,
+              backgroundColor: '#6366f1',
+              borderRadius: 4,
+            },
+            {
+              label: 'Acumulado',
+              data: cumulative,
+              type: 'line',
+              borderColor: '#22c55e',
+              backgroundColor: 'transparent',
+              tension: 0.3,
+              yAxisID: 'y1',
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#9ca3af' } } },
+          scales: {
+            x: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } },
+            y: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' }, beginAtZero: true },
+            y1: { position: 'right', ticks: { color: '#22c55e' }, grid: { display: false }, beginAtZero: true },
+          }
+        }
+      })
+
+      // Top routes
+      const routeCount = {}
+      items.forEach(item => {
+        const route = `${item.origin || '?'} → ${item.destination || '?'}`
+        routeCount[route] = (routeCount[route] || 0) + 1
+      })
+      const sortedRoutes = Object.entries(routeCount).sort((a, b) => b[1] - a[1]).slice(0, 5)
+      document.getElementById('routes-list').innerHTML = sortedRoutes.map(([route, count]) =>
+        `<div class="flex justify-between items-center bg-gray-700 rounded-lg px-4 py-2">
+          <span>${route}</span>
+          <span class="bg-indigo-600 text-xs px-2 py-1 rounded-full">${count}</span>
+        </div>`
+      ).join('')
+
+      // Table
+      document.getElementById('table-body').innerHTML = items.map(item =>
+        `<tr class="border-b border-gray-700/50">
+          <td class="py-2">${item.name || ''}</td>
+          <td class="py-2 text-gray-400">${item.email || ''}</td>
+          <td class="py-2 text-gray-400">${item.phone || ''}</td>
+          <td class="py-2">${item.origin || item.route || ''}</td>
+          <td class="py-2">${item.destination || ''}</td>
+          <td class="py-2 text-gray-500 text-xs">${(item.createdAt || '').slice(0, 16).replace('T', ' ')}</td>
+        </tr>`
+      ).join('')
+    }
+
+    function logout() {
+      localStorage.removeItem('vb-admin-key')
+      document.getElementById('dashboard').classList.add('hidden')
+      document.getElementById('login-screen').classList.remove('hidden')
+      document.getElementById('admin-key').value = ''
+    }
+
+    // Auto-login if key stored
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('vb-admin-key')
+      if (saved) {
+        document.getElementById('admin-key').value = saved
+        loadData()
+      }
+    })
+  </script>
+</body>
+</html>
