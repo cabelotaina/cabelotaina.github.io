@@ -78,6 +78,7 @@
           <input
             id="origin"
             type="text"
+            list="cities-origin"
             data-placeholder="placeholderOrigin"
             required
             class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -88,12 +89,50 @@
           <input
             id="destination"
             type="text"
+            list="cities-destination"
             data-placeholder="placeholderDestination"
             required
             class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
           />
         </div>
       </div>
+
+      <datalist id="cities-origin">
+        <option value="Madrid">
+        <option value="Barcelona">
+        <option value="Lisboa">
+        <option value="Paris">
+        <option value="Londres">
+        <option value="Milão">
+        <option value="Roma">
+        <option value="Berlim">
+        <option value="Amsterdam">
+        <option value="Dublin">
+        <option value="Bruxelas">
+        <option value="Porto">
+        <option value="Zurique">
+        <option value="Frankfurt">
+        <option value="Miami">
+        <option value="Nova York">
+      </datalist>
+      <datalist id="cities-destination">
+        <option value="São Paulo">
+        <option value="Rio de Janeiro">
+        <option value="Fortaleza">
+        <option value="Recife">
+        <option value="Salvador">
+        <option value="Belo Horizonte">
+        <option value="Brasília">
+        <option value="Natal">
+        <option value="Curitiba">
+        <option value="Porto Alegre">
+        <option value="Florianópolis">
+        <option value="Manaus">
+        <option value="Belém">
+        <option value="Maceió">
+        <option value="João Pessoa">
+        <option value="Vitória">
+      </datalist>
 
       <!-- GDPR consent -->
       <div class="flex items-start gap-2">
