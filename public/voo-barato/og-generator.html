@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .left {
+      flex: 1;
+      background: #fee2e2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+    }
+    .right {
+      flex: 1;
+      background: #d1fae5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+    }
+    .emoji {
+      font-size: 120px;
+      margin-bottom: 24px;
+    }
+    .caption {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.3;
+      max-width: 400px;
+    }
+    .left .caption { color: #991b1b; }
+    .right .caption { color: #065f46; }
+    .label {
+      position: absolute;
+      top: 30px;
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 6px 16px;
+      border-radius: 8px;
+    }
+    .left .label {
+      background: #fca5a5;
+      color: #7f1d1d;
+    }
+    .right .label {
+      background: #6ee7b7;
+      color: #064e3b;
+    }
+    .vs {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 900;
+      color: #6b7280;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+    .bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #4f46e5;
+      color: white;
+      text-align: center;
+      padding: 16px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .bottom-bar span {
+      opacity: 0.8;
+      font-weight: 400;
+      margin-left: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="left">
+    <div class="label">Todo dia</div>
+    <div class="emoji">😩💸</div>
+    <div class="caption">Eu pesquisando passagem pro Brasil e chorando com o preço</div>
+  </div>
+  <div class="right">
+    <div class="label">Com Voo Barato</div>
+    <div class="emoji">😎✈️</div>
+    <div class="caption">Eu recebendo alerta que o preço caiu e comprando na hora</div>
+  </div>
+  <div class="vs">VS</div>
+  <div class="bottom-bar">✈️ Voo Barato<span>— Alertas grátis de passagem pro Brasil</span></div>
+</body>
+</html>
