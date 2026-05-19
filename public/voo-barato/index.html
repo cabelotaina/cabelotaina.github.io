@@ -22,16 +22,16 @@
   <!-- Hero -->
   <main class="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center">
     <span class="bg-indigo-100 text-indigo-700 text-sm font-semibold px-4 py-1 rounded-full mb-6 inline-block" data-i18n="badge">
-      🚀 Em breve — lista de espera aberta
+      ✈️ Brasileiros na Europa economizando até 40%
     </span>
 
     <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight max-w-2xl mb-4" data-i18n="headline">
-      Receba um aviso quando a passagem pro Brasil
-      <span class="text-indigo-600"> ficar abaixo da média</span>
+      Passagem pro Brasil cara demais?
+      <span class="text-indigo-600"> A gente avisa quando o preço cair</span>
     </h1>
 
     <p class="text-lg text-gray-600 max-w-xl mb-10" data-i18n="subheadline">
-      Chega de ficar checando todo dia. Cadastre a rota e o período, e a gente te avisa por WhatsApp ou SMS quando o preço cair abaixo do histórico — com link direto pra comprar.
+      Pare de checar todo dia. Cadastre sua rota e receba um alerta no WhatsApp quando o preço cair abaixo da média histórica — com link direto pra comprar. 100% grátis.
     </p>
 
     <!-- Form -->
@@ -157,7 +157,7 @@
       <p id="error-msg" class="text-red-500 text-sm text-center pt-2 hidden"></p>
     </form>
 
-    <p class="text-xs text-gray-400 mt-6" data-i18n="freeNote">Grátis pra começar. Sem spam. Cancele quando quiser.</p>
+    <p class="text-xs text-gray-400 mt-6" data-i18n="freeNote">100% grátis. Sempre. Sem spam.</p>
   </main>
 
   <!-- Como funciona -->
@@ -179,6 +179,31 @@
           <div class="text-4xl mb-3">🔔</div>
           <h3 class="font-semibold text-gray-800 mb-2" data-i18n="step3Title">3. Você recebe o alerta</h3>
           <p class="text-sm text-gray-500" data-i18n="step3Desc">Quando o preço cair abaixo da média, a gente te avisa por WhatsApp ou SMS com link direto pra comprar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Por que grátis -->
+  <section class="py-16 px-6 bg-indigo-50">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4" data-i18n="whyFreeTitle">Por que é grátis?</h2>
+      <p class="text-gray-600 max-w-xl mx-auto mb-10" data-i18n="whyFreeDesc">Outros serviços cobram €5 a €10 por mês. O Voo Barato ganha uma comissão quando você compra pelo nosso link — e só ganhamos se você realmente economizar.</p>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <div class="text-3xl mb-2">💸</div>
+          <h3 class="font-semibold text-gray-800 mb-1" data-i18n="diffFreeTitle">100% Grátis. Sempre.</h3>
+          <p class="text-sm text-gray-500" data-i18n="diffFreeDesc">Sem planos pagos, sem truques. Todos os alertas são grátis.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <div class="text-3xl mb-2">🎯</div>
+          <h3 class="font-semibold text-gray-800 mb-1" data-i18n="diffPersonalTitle">Personalizado pra você</h3>
+          <p class="text-sm text-gray-500" data-i18n="diffPersonalDesc">Alerta na SUA rota, não rotas genéricas. Você escolhe origem e destino.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+          <div class="text-3xl mb-2">📱</div>
+          <h3 class="font-semibold text-gray-800 mb-1" data-i18n="diffWhatsTitle">WhatsApp, não email</h3>
+          <p class="text-sm text-gray-500" data-i18n="diffWhatsDesc">Alerta direto no celular. Sem se perder em caixa de spam.</p>
         </div>
       </div>
     </div>
@@ -207,9 +232,17 @@
     // === i18n ===
     const i18n = {
       pt: {
-        badge: '🚀 Em breve — lista de espera aberta',
-        headline: 'Receba um aviso quando a passagem pro Brasil <span class="text-indigo-600">ficar abaixo da média</span>',
-        subheadline: 'Chega de ficar checando todo dia. Cadastre a rota e o período, e a gente te avisa por WhatsApp ou SMS quando o preço cair abaixo do histórico — com link direto pra comprar.',
+        badge: '✈️ Brasileiros na Europa economizando até 40%',
+        headline: 'Passagem pro Brasil cara demais? <span class="text-indigo-600">A gente avisa quando o preço cair</span>',
+        subheadline: 'Pare de checar todo dia. Cadastre sua rota e receba um alerta no WhatsApp quando o preço cair abaixo da média histórica — com link direto pra comprar. 100% grátis.',
+        whyFreeTitle: 'Por que é grátis?',
+        whyFreeDesc: 'Outros serviços cobram €5 a €10 por mês. O Voo Barato ganha uma comissão quando você compra pelo nosso link — e só ganhamos se você realmente economizar.',
+        diffFreeTitle: '100% Grátis. Sempre.',
+        diffFreeDesc: 'Sem planos pagos, sem truques. Todos os alertas são grátis.',
+        diffPersonalTitle: 'Personalizado pra você',
+        diffPersonalDesc: 'Alerta na SUA rota, não rotas genéricas. Você escolhe origem e destino.',
+        diffWhatsTitle: 'WhatsApp, não email',
+        diffWhatsDesc: 'Alerta direto no celular. Sem se perder em caixa de spam.',
         labelName: 'Nome',
         labelEmail: 'Email',
         labelPhone: 'Celular (WhatsApp ou SMS)',
@@ -222,7 +255,7 @@
         submitBtn: 'Quero ser avisado 🔔',
         submitting: 'Enviando...',
         successMsg: '✅ Perfeito! Vamos te avisar assim que o sistema estiver pronto.',
-        freeNote: 'Grátis pra começar. Sem spam. Cancele quando quiser.',
+        freeNote: '100% grátis. Sempre. Sem spam.',
         howTitle: 'Como funciona',
         step1Title: '1. Cadastre a rota',
         step1Desc: 'Diga qual rota e em que período você quer viajar. Pode ser datas fixas ou um mês inteiro.',
@@ -253,9 +286,17 @@
         contactSuccess: '✅ Pedido enviado! Responderemos em até 30 dias.',
       },
       es: {
-        badge: '🚀 Próximamente — lista de espera abierta',
-        headline: 'Recibe un aviso cuando el vuelo a Brasil <span class="text-indigo-600">baja del precio medio</span>',
-        subheadline: 'Deja de buscar cada día. Registra la ruta y el período, y te avisamos por WhatsApp o SMS cuando el precio caiga por debajo del histórico — con enlace directo para comprar.',
+        badge: '✈️ Brasileños en Europa ahorrando hasta un 40%',
+        headline: '¿Vuelo a Brasil demasiado caro? <span class="text-indigo-600">Te avisamos cuando baje el precio</span>',
+        subheadline: 'Deja de buscar cada día. Registra tu ruta y recibe una alerta en WhatsApp cuando el precio caiga por debajo de la media histórica — con enlace directo. 100% gratis.',
+        whyFreeTitle: '¿Por qué es gratis?',
+        whyFreeDesc: 'Otros servicios cobran €5 a €10 al mes. Voo Barato gana una comisión cuando compras por nuestro enlace — solo ganamos si tú realmente ahorras.',
+        diffFreeTitle: '100% Gratis. Siempre.',
+        diffFreeDesc: 'Sin planes de pago, sin trucos. Todas las alertas son gratis.',
+        diffPersonalTitle: 'Personalizado para ti',
+        diffPersonalDesc: 'Alertas en TU ruta, no rutas genéricas. Tú eliges origen y destino.',
+        diffWhatsTitle: 'WhatsApp, no email',
+        diffWhatsDesc: 'Alerta directo en el móvil. Sin perderte en la bandeja de spam.',
         labelName: 'Nombre',
         labelEmail: 'Email',
         labelPhone: 'Móvil (WhatsApp o SMS)',
@@ -268,7 +309,7 @@
         submitBtn: 'Quiero recibir alertas 🔔',
         submitting: 'Enviando...',
         successMsg: '✅ ¡Perfecto! Te avisaremos cuando el sistema esté listo.',
-        freeNote: 'Gratis para empezar. Sin spam. Cancela cuando quieras.',
+        freeNote: '100% gratis. Siempre. Sin spam.',
         howTitle: 'Cómo funciona',
         step1Title: '1. Registra la ruta',
         step1Desc: 'Indica qué ruta y en qué período quieres viajar. Fechas fijas o un mes.',
@@ -299,9 +340,17 @@
         contactSuccess: '✅ ¡Solicitud enviada! Responderemos en un máximo de 30 días.',
       },
       en: {
-        badge: '🚀 Coming soon — waitlist open',
-        headline: 'Get notified when flights to Brazil <span class="text-indigo-600">drop below average price</span>',
-        subheadline: 'Stop checking every day. Register your route and travel period, and we\'ll notify you via WhatsApp or SMS when the price drops below the historical average — with a direct booking link.',
+        badge: '✈️ Brazilians in Europe saving up to 40%',
+        headline: 'Flights to Brazil too expensive? <span class="text-indigo-600">We\'ll alert you when prices drop</span>',
+        subheadline: 'Stop checking every day. Register your route and get a WhatsApp alert when the price drops below the historical average — with a direct booking link. 100% free.',
+        whyFreeTitle: 'Why is it free?',
+        whyFreeDesc: 'Other services charge €5 to €10 per month. Voo Barato earns a commission when you book through our link — we only win when you actually save.',
+        diffFreeTitle: '100% Free. Always.',
+        diffFreeDesc: 'No paid plans, no tricks. All alerts are free.',
+        diffPersonalTitle: 'Personalized for you',
+        diffPersonalDesc: 'Alerts on YOUR route, not generic ones. You choose origin and destination.',
+        diffWhatsTitle: 'WhatsApp, not email',
+        diffWhatsDesc: 'Alert straight to your phone. No getting lost in spam folders.',
         labelName: 'Name',
         labelEmail: 'Email',
         labelPhone: 'Phone (WhatsApp or SMS)',
@@ -314,7 +363,7 @@
         submitBtn: 'Notify me 🔔',
         submitting: 'Sending...',
         successMsg: '✅ Done! We\'ll notify you as soon as the system is ready.',
-        freeNote: 'Free to start. No spam. Cancel anytime.',
+        freeNote: '100% free. Always. No spam.',
         howTitle: 'How it works',
         step1Title: '1. Register your route',
         step1Desc: 'Tell us which route and when you want to travel. Fixed dates or a whole month.',
