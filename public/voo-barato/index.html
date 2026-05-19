@@ -72,15 +72,27 @@
         />
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="labelRoute">Rota que queres monitorar</label>
-        <input
-          id="route"
-          type="text"
-          data-placeholder="placeholderRoute"
-          required
-          class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        />
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="labelOrigin">Origem</label>
+          <input
+            id="origin"
+            type="text"
+            data-placeholder="placeholderOrigin"
+            required
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="labelDestination">Destino</label>
+          <input
+            id="destination"
+            type="text"
+            data-placeholder="placeholderDestination"
+            required
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          />
+        </div>
       </div>
 
       <!-- GDPR consent -->
@@ -162,9 +174,11 @@
         labelName: 'Nome',
         labelEmail: 'Email',
         labelPhone: 'Telemóvel (WhatsApp ou SMS)',
-        labelRoute: 'Rota que queres monitorar',
+        labelOrigin: 'Origem',
+        labelDestination: 'Destino',
         placeholderName: 'Seu nome',
-        placeholderRoute: 'Ex: Madrid → São Paulo',
+        placeholderOrigin: 'Ex: Madrid',
+        placeholderDestination: 'Ex: São Paulo',
         consent: 'Li e aceito a <a href="#" onclick="openModal(\'privacy\')" class="text-indigo-600 underline">Política de Privacidade</a>. Posso pedir a remoção dos meus dados a qualquer momento.',
         submitBtn: 'Quero ser avisado 🔔',
         submitting: 'Enviando...',
@@ -206,9 +220,11 @@
         labelName: 'Nombre',
         labelEmail: 'Email',
         labelPhone: 'Móvil (WhatsApp o SMS)',
-        labelRoute: 'Ruta que quieres monitorear',
+        labelOrigin: 'Origen',
+        labelDestination: 'Destino',
         placeholderName: 'Tu nombre',
-        placeholderRoute: 'Ej: Madrid → São Paulo',
+        placeholderOrigin: 'Ej: Madrid',
+        placeholderDestination: 'Ej: São Paulo',
         consent: 'He leído y acepto la <a href="#" onclick="openModal(\'privacy\')" class="text-indigo-600 underline">Política de Privacidad</a>. Puedo solicitar la eliminación de mis datos en cualquier momento.',
         submitBtn: 'Quiero recibir alertas 🔔',
         submitting: 'Enviando...',
@@ -250,9 +266,11 @@
         labelName: 'Name',
         labelEmail: 'Email',
         labelPhone: 'Phone (WhatsApp or SMS)',
-        labelRoute: 'Route to monitor',
+        labelOrigin: 'Origin',
+        labelDestination: 'Destination',
         placeholderName: 'Your name',
-        placeholderRoute: 'E.g.: Madrid → São Paulo',
+        placeholderOrigin: 'E.g.: Madrid',
+        placeholderDestination: 'E.g.: São Paulo',
         consent: 'I have read and accept the <a href="#" onclick="openModal(\'privacy\')" class="text-indigo-600 underline">Privacy Policy</a>. I can request data removal at any time.',
         submitBtn: 'Notify me 🔔',
         submitting: 'Sending...',
@@ -399,7 +417,9 @@
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
-        route: document.getElementById('route').value,
+        origin: document.getElementById('origin').value,
+        destination: document.getElementById('destination').value,
+        consentAt: new Date().toISOString(),
       }
 
       try {
