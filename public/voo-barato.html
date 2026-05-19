@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voo Barato — Alertas de passagens para o Brasil</title>
+  <meta name="description" content="Recebe um aviso por WhatsApp ou SMS quando a passagem para o Brasil cair abaixo da média histórica. Grátis para começar." />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col font-sans">
+
+  <!-- Nav -->
+  <nav class="px-6 py-4 max-w-5xl mx-auto w-full">
+    <span class="text-2xl font-bold text-indigo-700">✈️ Voo Barato</span>
+  </nav>
+
+  <!-- Hero -->
+  <main class="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center">
+    <span class="bg-indigo-100 text-indigo-700 text-sm font-semibold px-4 py-1 rounded-full mb-6 inline-block">
+      🚀 Em breve — lista de espera aberta
+    </span>
+
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight max-w-2xl mb-4">
+      Recebe um aviso quando a passagem para o Brasil
+      <span class="text-indigo-600"> fica abaixo da média</span>
+    </h1>
+
+    <p class="text-lg text-gray-600 max-w-xl mb-10">
+      Chega de ficar checando todo dia. Cadastra a rota e o período, e a gente te avisa por WhatsApp ou SMS quando o preço cair abaixo do histórico — com link direto para comprar.
+    </p>
+
+    <!-- Form -->
+    <form
+      id="waitlist-form"
+      class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md text-left space-y-4"
+    >
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Seu nome"
+          required
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="seu@email.com"
+          required
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Telemóvel (WhatsApp ou SMS)</label>
+        <input
+          id="phone"
+          type="tel"
+          placeholder="+34 600 000 000"
+          required
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rota que queres monitorar</label>
+        <input
+          id="route"
+          type="text"
+          placeholder="Ex: Madrid → São Paulo"
+          required
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        />
+      </div>
+
+      <button
+        type="submit"
+        id="submit-btn"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-semibold rounded-lg px-6 py-3 transition"
+      >
+        Quero ser avisado 🔔
+      </button>
+
+      <p id="success-msg" class="text-green-600 text-sm text-center pt-2 hidden">
+        ✅ Perfeito! Vamos te avisar assim que o sistema estiver pronto.
+      </p>
+      <p id="error-msg" class="text-red-500 text-sm text-center pt-2 hidden"></p>
+    </form>
+
+    <p class="text-xs text-gray-400 mt-6">Grátis para começar. Sem spam. Cancela quando quiser.</p>
+  </main>
+
+  <!-- Como funciona -->
+  <section class="bg-white py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl font-bold text-center text-gray-900 mb-10">Como funciona</h2>
+      <div class="grid sm:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="text-4xl mb-3">🗺️</div>
+          <h3 class="font-semibold text-gray-800 mb-2">1. Cadastras a rota</h3>
+          <p class="text-sm text-gray-500">Dizes qual rota e em que período queres viajar. Pode ser datas fixas ou um mês.</p>
+        </div>
+        <div>
+          <div class="text-4xl mb-3">📊</div>
+          <h3 class="font-semibold text-gray-800 mb-2">2. Monitoramos o preço</h3>
+          <p class="text-sm text-gray-500">O sistema compara o preço real com a média histórica daquela rota e período.</p>
+        </div>
+        <div>
+          <div class="text-4xl mb-3">🔔</div>
+          <h3 class="font-semibold text-gray-800 mb-2">3. Recebes o alerta</h3>
+          <p class="text-sm text-gray-500">Quando o preço cair abaixo da média, avisamos por WhatsApp ou SMS com link direto para comprar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-xs text-gray-400 bg-gray-50">
+    © 2026 Voo Barato · Feito com ❤️ por brasileiros na Espanha
+  </footer>
+
+  <script>
+    const API_URL = 'https://api.voobarato.com' // substituir pelo URL da Lambda depois
+
+    document.getElementById('waitlist-form').addEventListener('submit', async function (e) {
+      e.preventDefault()
+      const btn = document.getElementById('submit-btn')
+      const successMsg = document.getElementById('success-msg')
+      const errorMsg = document.getElementById('error-msg')
+
+      btn.disabled = true
+      btn.textContent = 'Enviando...'
+      successMsg.classList.add('hidden')
+      errorMsg.classList.add('hidden')
+
+      const body = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        route: document.getElementById('route').value,
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/waitlist`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        })
+        if (!res.ok) throw new Error('Erro ao enviar. Tenta novamente.')
+        successMsg.classList.remove('hidden')
+        document.getElementById('waitlist-form').reset()
+      } catch (err) {
+        errorMsg.textContent = err.message
+        errorMsg.classList.remove('hidden')
+      } finally {
+        btn.disabled = false
+        btn.textContent = 'Quero ser avisado 🔔'
+      }
+    })
+  </script>
+</body>
+</html>
