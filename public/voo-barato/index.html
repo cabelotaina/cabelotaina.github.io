@@ -10,22 +10,27 @@
 <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col font-sans">
 
   <!-- Nav -->
-  <nav class="px-6 py-4 max-w-5xl mx-auto w-full">
+  <nav class="px-6 py-4 max-w-5xl mx-auto w-full flex justify-between items-center">
     <span class="text-2xl font-bold text-indigo-700">✈️ Voo Barato</span>
+    <div id="lang-switcher" class="flex gap-1 text-xs">
+      <button onclick="setLang('pt')" class="px-2 py-1 rounded hover:bg-indigo-100 transition" id="lang-pt">PT</button>
+      <button onclick="setLang('es')" class="px-2 py-1 rounded hover:bg-indigo-100 transition" id="lang-es">ES</button>
+      <button onclick="setLang('en')" class="px-2 py-1 rounded hover:bg-indigo-100 transition" id="lang-en">EN</button>
+    </div>
   </nav>
 
   <!-- Hero -->
   <main class="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center">
-    <span class="bg-indigo-100 text-indigo-700 text-sm font-semibold px-4 py-1 rounded-full mb-6 inline-block">
+    <span class="bg-indigo-100 text-indigo-700 text-sm font-semibold px-4 py-1 rounded-full mb-6 inline-block" data-i18n="badge">
       🚀 Em breve — lista de espera aberta
     </span>
 
-    <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight max-w-2xl mb-4">
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight max-w-2xl mb-4" data-i18n="headline">
       Recebe um aviso quando a passagem para o Brasil
       <span class="text-indigo-600"> fica abaixo da média</span>
     </h1>
 
-    <p class="text-lg text-gray-600 max-w-xl mb-10">
+    <p class="text-lg text-gray-600 max-w-xl mb-10" data-i18n="subheadline">
       Chega de ficar checando todo dia. Cadastra a rota e o período, e a gente te avisa por WhatsApp ou SMS quando o preço cair abaixo do histórico — com link direto para comprar.
     </p>
 
@@ -35,18 +40,18 @@
       class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md text-left space-y-4"
     >
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="labelName">Nome</label>
         <input
           id="name"
           type="text"
-          placeholder="Seu nome"
+          data-placeholder="placeholderName"
           required
           class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="labelEmail">Email</label>
         <input
           id="email"
           type="email"
@@ -57,7 +62,7 @@
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Telemóvel (WhatsApp ou SMS)</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="labelPhone">Telemóvel (WhatsApp ou SMS)</label>
         <input
           id="phone"
           type="tel"
@@ -68,73 +73,325 @@
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Rota que queres monitorar</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="labelRoute">Rota que queres monitorar</label>
         <input
           id="route"
           type="text"
-          placeholder="Ex: Madrid → São Paulo"
+          data-placeholder="placeholderRoute"
           required
           class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
+      </div>
+
+      <!-- GDPR consent -->
+      <div class="flex items-start gap-2">
+        <input id="consent" type="checkbox" required class="mt-1 accent-indigo-600" />
+        <label for="consent" class="text-xs text-gray-500" data-i18n="consent">
+          Li e aceito a <a href="#" onclick="openModal('privacy')" class="text-indigo-600 underline">Política de Privacidade</a>. Posso pedir a remoção dos meus dados a qualquer momento.
+        </label>
       </div>
 
       <button
         type="submit"
         id="submit-btn"
         class="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-semibold rounded-lg px-6 py-3 transition"
+        data-i18n="submitBtn"
       >
         Quero ser avisado 🔔
       </button>
 
-      <p id="success-msg" class="text-green-600 text-sm text-center pt-2 hidden">
+      <p id="success-msg" class="text-green-600 text-sm text-center pt-2 hidden" data-i18n="successMsg">
         ✅ Perfeito! Vamos te avisar assim que o sistema estiver pronto.
       </p>
       <p id="error-msg" class="text-red-500 text-sm text-center pt-2 hidden"></p>
     </form>
 
-    <p class="text-xs text-gray-400 mt-6">Grátis para começar. Sem spam. Cancela quando quiser.</p>
+    <p class="text-xs text-gray-400 mt-6" data-i18n="freeNote">Grátis para começar. Sem spam. Cancela quando quiser.</p>
   </main>
 
   <!-- Como funciona -->
   <section class="bg-white py-16 px-6">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-2xl font-bold text-center text-gray-900 mb-10">Como funciona</h2>
+      <h2 class="text-2xl font-bold text-center text-gray-900 mb-10" data-i18n="howTitle">Como funciona</h2>
       <div class="grid sm:grid-cols-3 gap-8 text-center">
         <div>
           <div class="text-4xl mb-3">🗺️</div>
-          <h3 class="font-semibold text-gray-800 mb-2">1. Cadastras a rota</h3>
-          <p class="text-sm text-gray-500">Dizes qual rota e em que período queres viajar. Pode ser datas fixas ou um mês.</p>
+          <h3 class="font-semibold text-gray-800 mb-2" data-i18n="step1Title">1. Cadastras a rota</h3>
+          <p class="text-sm text-gray-500" data-i18n="step1Desc">Dizes qual rota e em que período queres viajar. Pode ser datas fixas ou um mês.</p>
         </div>
         <div>
           <div class="text-4xl mb-3">📊</div>
-          <h3 class="font-semibold text-gray-800 mb-2">2. Monitoramos o preço</h3>
-          <p class="text-sm text-gray-500">O sistema compara o preço real com a média histórica daquela rota e período.</p>
+          <h3 class="font-semibold text-gray-800 mb-2" data-i18n="step2Title">2. Monitoramos o preço</h3>
+          <p class="text-sm text-gray-500" data-i18n="step2Desc">O sistema compara o preço real com a média histórica daquela rota e período.</p>
         </div>
         <div>
           <div class="text-4xl mb-3">🔔</div>
-          <h3 class="font-semibold text-gray-800 mb-2">3. Recebes o alerta</h3>
-          <p class="text-sm text-gray-500">Quando o preço cair abaixo da média, avisamos por WhatsApp ou SMS com link direto para comprar.</p>
+          <h3 class="font-semibold text-gray-800 mb-2" data-i18n="step3Title">3. Recebes o alerta</h3>
+          <p class="text-sm text-gray-500" data-i18n="step3Desc">Quando o preço cair abaixo da média, avisamos por WhatsApp ou SMS com link direto para comprar.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-6 text-center text-xs text-gray-400 bg-gray-50">
-    © 2026 Voo Barato · Feito com ❤️ por brasileiros na Espanha
+  <footer class="py-6 text-center text-xs text-gray-400 bg-gray-50 space-y-1">
+    <p>© 2026 Voo Barato · <span data-i18n="footerMade">Feito com ❤️ por brasileiros na Espanha</span></p>
+    <p>
+      <a href="#" onclick="openModal('privacy')" class="underline hover:text-indigo-600" data-i18n="footerPrivacy">Política de Privacidade</a>
+      · <a href="#" onclick="openModal('contact')" class="underline hover:text-indigo-600" data-i18n="footerContact">Contacto / Remoção de dados</a>
+    </p>
   </footer>
+
+  <!-- Modal -->
+  <div id="modal-overlay" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4" onclick="closeModal(event)">
+    <div class="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[80vh] overflow-y-auto p-8 relative" onclick="event.stopPropagation()">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-xl">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
 
   <script>
     const API_URL = 'https://api.voobarato.com' // substituir pelo URL da Lambda depois
 
+    // === i18n ===
+    const i18n = {
+      pt: {
+        badge: '🚀 Em breve — lista de espera aberta',
+        headline: 'Recebe um aviso quando a passagem para o Brasil <span class="text-indigo-600">fica abaixo da média</span>',
+        subheadline: 'Chega de ficar checando todo dia. Cadastra a rota e o período, e a gente te avisa por WhatsApp ou SMS quando o preço cair abaixo do histórico — com link direto para comprar.',
+        labelName: 'Nome',
+        labelEmail: 'Email',
+        labelPhone: 'Telemóvel (WhatsApp ou SMS)',
+        labelRoute: 'Rota que queres monitorar',
+        placeholderName: 'Seu nome',
+        placeholderRoute: 'Ex: Madrid → São Paulo',
+        consent: 'Li e aceito a <a href="#" onclick="openModal(\'privacy\')" class="text-indigo-600 underline">Política de Privacidade</a>. Posso pedir a remoção dos meus dados a qualquer momento.',
+        submitBtn: 'Quero ser avisado 🔔',
+        submitting: 'Enviando...',
+        successMsg: '✅ Perfeito! Vamos te avisar assim que o sistema estiver pronto.',
+        freeNote: 'Grátis para começar. Sem spam. Cancela quando quiser.',
+        howTitle: 'Como funciona',
+        step1Title: '1. Cadastras a rota',
+        step1Desc: 'Dizes qual rota e em que período queres viajar. Pode ser datas fixas ou um mês.',
+        step2Title: '2. Monitoramos o preço',
+        step2Desc: 'O sistema compara o preço real com a média histórica daquela rota e período.',
+        step3Title: '3. Recebes o alerta',
+        step3Desc: 'Quando o preço cair abaixo da média, avisamos por WhatsApp ou SMS com link direto para comprar.',
+        footerMade: 'Feito com ❤️ por brasileiros na Espanha',
+        footerPrivacy: 'Política de Privacidade',
+        footerContact: 'Contacto / Remoção de dados',
+        privacyTitle: 'Política de Privacidade',
+        privacyBody: `<p class="mb-3"><strong>Responsável:</strong> Voo Barato (operado por pessoa física em Madrid, Espanha).</p>
+          <p class="mb-3"><strong>Dados recolhidos:</strong> nome, email, telemóvel e rota de interesse — apenas para envio de alertas de preço.</p>
+          <p class="mb-3"><strong>Base legal:</strong> Consentimento (art. 6.1.a RGPD). Podes retirar o consentimento a qualquer momento.</p>
+          <p class="mb-3"><strong>Conservação:</strong> Mantemos os dados enquanto o utilizador tiver a conta ativa. Ao solicitar remoção, os dados são apagados em até 30 dias.</p>
+          <p class="mb-3"><strong>Direitos:</strong> Acesso, retificação, eliminação e portabilidade. Para exercer, usa o formulário de contacto abaixo.</p>
+          <p class="mb-3"><strong>Partilha:</strong> Não partilhamos dados com terceiros. Os links de compra usam programas de afiliado (Travelpayouts/Kiwi.com) sem partilha de dados pessoais.</p>
+          <p><strong>Contacto:</strong> Usa o <a href="#" onclick="closeModal();setTimeout(()=>openModal(\'contact\'),300)" class="text-indigo-600 underline">formulário de contacto</a>.</p>`,
+        contactTitle: 'Contacto / Remoção de dados',
+        contactName: 'Teu nome',
+        contactEmail: 'Teu email',
+        contactType: 'Tipo de pedido',
+        contactTypeRemove: 'Remover os meus dados',
+        contactTypeAccess: 'Acesso aos meus dados',
+        contactTypeOther: 'Outro',
+        contactMessage: 'Mensagem (opcional)',
+        contactSend: 'Enviar',
+        contactSuccess: '✅ Pedido enviado! Responderemos em até 30 dias.',
+      },
+      es: {
+        badge: '🚀 Próximamente — lista de espera abierta',
+        headline: 'Recibe un aviso cuando el vuelo a Brasil <span class="text-indigo-600">baja del precio medio</span>',
+        subheadline: 'Deja de buscar cada día. Registra la ruta y el período, y te avisamos por WhatsApp o SMS cuando el precio caiga por debajo del histórico — con enlace directo para comprar.',
+        labelName: 'Nombre',
+        labelEmail: 'Email',
+        labelPhone: 'Móvil (WhatsApp o SMS)',
+        labelRoute: 'Ruta que quieres monitorear',
+        placeholderName: 'Tu nombre',
+        placeholderRoute: 'Ej: Madrid → São Paulo',
+        consent: 'He leído y acepto la <a href="#" onclick="openModal(\'privacy\')" class="text-indigo-600 underline">Política de Privacidad</a>. Puedo solicitar la eliminación de mis datos en cualquier momento.',
+        submitBtn: 'Quiero recibir alertas 🔔',
+        submitting: 'Enviando...',
+        successMsg: '✅ ¡Perfecto! Te avisaremos cuando el sistema esté listo.',
+        freeNote: 'Gratis para empezar. Sin spam. Cancela cuando quieras.',
+        howTitle: 'Cómo funciona',
+        step1Title: '1. Registra la ruta',
+        step1Desc: 'Indica qué ruta y en qué período quieres viajar. Fechas fijas o un mes.',
+        step2Title: '2. Monitoreamos el precio',
+        step2Desc: 'El sistema compara el precio actual con la media histórica de esa ruta y período.',
+        step3Title: '3. Recibes la alerta',
+        step3Desc: 'Cuando el precio caiga por debajo de la media, te avisamos por WhatsApp o SMS con enlace directo.',
+        footerMade: 'Hecho con ❤️ por brasileños en España',
+        footerPrivacy: 'Política de Privacidad',
+        footerContact: 'Contacto / Eliminación de datos',
+        privacyTitle: 'Política de Privacidad',
+        privacyBody: `<p class="mb-3"><strong>Responsable:</strong> Voo Barato (operado por persona física en Madrid, España).</p>
+          <p class="mb-3"><strong>Datos recopilados:</strong> nombre, email, móvil y ruta de interés — solo para el envío de alertas de precio.</p>
+          <p class="mb-3"><strong>Base legal:</strong> Consentimiento (art. 6.1.a RGPD). Puedes retirar el consentimiento en cualquier momento.</p>
+          <p class="mb-3"><strong>Conservación:</strong> Mantenemos los datos mientras el usuario tenga la cuenta activa. Al solicitar eliminación, los datos se borran en un máximo de 30 días.</p>
+          <p class="mb-3"><strong>Derechos:</strong> Acceso, rectificación, supresión y portabilidad. Para ejercerlos, usa el formulario de contacto.</p>
+          <p class="mb-3"><strong>Compartición:</strong> No compartimos datos con terceros. Los enlaces de compra usan programas de afiliación (Travelpayouts/Kiwi.com) sin compartir datos personales.</p>
+          <p><strong>Contacto:</strong> Usa el <a href="#" onclick="closeModal();setTimeout(()=>openModal(\'contact\'),300)" class="text-indigo-600 underline">formulario de contacto</a>.</p>`,
+        contactTitle: 'Contacto / Eliminación de datos',
+        contactName: 'Tu nombre',
+        contactEmail: 'Tu email',
+        contactType: 'Tipo de solicitud',
+        contactTypeRemove: 'Eliminar mis datos',
+        contactTypeAccess: 'Acceso a mis datos',
+        contactTypeOther: 'Otro',
+        contactMessage: 'Mensaje (opcional)',
+        contactSend: 'Enviar',
+        contactSuccess: '✅ ¡Solicitud enviada! Responderemos en un máximo de 30 días.',
+      },
+      en: {
+        badge: '🚀 Coming soon — waitlist open',
+        headline: 'Get notified when flights to Brazil <span class="text-indigo-600">drop below average price</span>',
+        subheadline: 'Stop checking every day. Register your route and travel period, and we\'ll notify you via WhatsApp or SMS when the price drops below the historical average — with a direct booking link.',
+        labelName: 'Name',
+        labelEmail: 'Email',
+        labelPhone: 'Phone (WhatsApp or SMS)',
+        labelRoute: 'Route to monitor',
+        placeholderName: 'Your name',
+        placeholderRoute: 'E.g.: Madrid → São Paulo',
+        consent: 'I have read and accept the <a href="#" onclick="openModal(\'privacy\')" class="text-indigo-600 underline">Privacy Policy</a>. I can request data removal at any time.',
+        submitBtn: 'Notify me 🔔',
+        submitting: 'Sending...',
+        successMsg: '✅ Done! We\'ll notify you as soon as the system is ready.',
+        freeNote: 'Free to start. No spam. Cancel anytime.',
+        howTitle: 'How it works',
+        step1Title: '1. Register your route',
+        step1Desc: 'Tell us which route and when you want to travel. Fixed dates or a whole month.',
+        step2Title: '2. We monitor the price',
+        step2Desc: 'The system compares current prices with the historical average for that route and period.',
+        step3Title: '3. Get the alert',
+        step3Desc: 'When the price drops below average, we notify you via WhatsApp or SMS with a direct link to buy.',
+        footerMade: 'Made with ❤️ by Brazilians in Spain',
+        footerPrivacy: 'Privacy Policy',
+        footerContact: 'Contact / Data removal',
+        privacyTitle: 'Privacy Policy',
+        privacyBody: `<p class="mb-3"><strong>Controller:</strong> Voo Barato (operated by a natural person in Madrid, Spain).</p>
+          <p class="mb-3"><strong>Data collected:</strong> name, email, phone number and route of interest — solely for sending price alerts.</p>
+          <p class="mb-3"><strong>Legal basis:</strong> Consent (Art. 6.1.a GDPR). You can withdraw consent at any time.</p>
+          <p class="mb-3"><strong>Retention:</strong> We keep data while the user has an active account. Upon removal request, data is deleted within 30 days.</p>
+          <p class="mb-3"><strong>Rights:</strong> Access, rectification, erasure and portability. To exercise them, use the contact form.</p>
+          <p class="mb-3"><strong>Sharing:</strong> We do not share data with third parties. Booking links use affiliate programs (Travelpayouts/Kiwi.com) without sharing personal data.</p>
+          <p><strong>Contact:</strong> Use the <a href="#" onclick="closeModal();setTimeout(()=>openModal(\'contact\'),300)" class="text-indigo-600 underline">contact form</a>.</p>`,
+        contactTitle: 'Contact / Data Removal',
+        contactName: 'Your name',
+        contactEmail: 'Your email',
+        contactType: 'Request type',
+        contactTypeRemove: 'Delete my data',
+        contactTypeAccess: 'Access my data',
+        contactTypeOther: 'Other',
+        contactMessage: 'Message (optional)',
+        contactSend: 'Send',
+        contactSuccess: '✅ Request sent! We\'ll respond within 30 days.',
+      }
+    }
+
+    let currentLang = 'pt'
+
+    function detectLang() {
+      const nav = navigator.language || navigator.userLanguage || 'en'
+      const code = nav.slice(0, 2).toLowerCase()
+      if (code === 'pt') return 'pt'
+      if (code === 'es') return 'es'
+      return 'en'
+    }
+
+    function setLang(lang) {
+      currentLang = lang
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es' : 'en'
+      const t = i18n[lang]
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n')
+        if (t[key]) el.innerHTML = t[key]
+      })
+
+      document.querySelectorAll('[data-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-placeholder')
+        if (t[key]) el.placeholder = t[key]
+      })
+
+      // Active lang button styling
+      document.querySelectorAll('#lang-switcher button').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white')
+        btn.classList.add('text-gray-600')
+      })
+      const active = document.getElementById('lang-' + lang)
+      if (active) {
+        active.classList.add('bg-indigo-600', 'text-white')
+        active.classList.remove('text-gray-600')
+      }
+    }
+
+    // === Modal ===
+    function openModal(type) {
+      const t = i18n[currentLang]
+      const overlay = document.getElementById('modal-overlay')
+      const content = document.getElementById('modal-content')
+
+      if (type === 'privacy') {
+        content.innerHTML = `<h2 class="text-xl font-bold mb-4">${t.privacyTitle}</h2>${t.privacyBody}`
+      } else if (type === 'contact') {
+        content.innerHTML = `
+          <h2 class="text-xl font-bold mb-4">${t.contactTitle}</h2>
+          <form id="contact-form" class="space-y-3">
+            <input id="c-name" type="text" placeholder="${t.contactName}" required class="w-full border rounded-lg px-4 py-2 text-sm" />
+            <input id="c-email" type="email" placeholder="${t.contactEmail}" required class="w-full border rounded-lg px-4 py-2 text-sm" />
+            <select id="c-type" required class="w-full border rounded-lg px-4 py-2 text-sm">
+              <option value="">${t.contactType}</option>
+              <option value="remove">${t.contactTypeRemove}</option>
+              <option value="access">${t.contactTypeAccess}</option>
+              <option value="other">${t.contactTypeOther}</option>
+            </select>
+            <textarea id="c-message" placeholder="${t.contactMessage}" rows="3" class="w-full border rounded-lg px-4 py-2 text-sm"></textarea>
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg px-4 py-2 transition">${t.contactSend}</button>
+            <p id="contact-success" class="text-green-600 text-sm text-center hidden">${t.contactSuccess}</p>
+          </form>`
+        setTimeout(() => {
+          document.getElementById('contact-form').addEventListener('submit', handleContact)
+        }, 0)
+      }
+
+      overlay.classList.remove('hidden')
+    }
+
+    function closeModal(e) {
+      if (e && e.target !== document.getElementById('modal-overlay')) return
+      document.getElementById('modal-overlay').classList.add('hidden')
+    }
+
+    async function handleContact(e) {
+      e.preventDefault()
+      const body = {
+        name: document.getElementById('c-name').value,
+        email: document.getElementById('c-email').value,
+        type: document.getElementById('c-type').value,
+        message: document.getElementById('c-message').value,
+      }
+      try {
+        await fetch(`${API_URL}/contact`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        })
+      } catch {}
+      document.getElementById('contact-form').reset()
+      document.getElementById('contact-success').classList.remove('hidden')
+    }
+
+    // === Waitlist form ===
     document.getElementById('waitlist-form').addEventListener('submit', async function (e) {
       e.preventDefault()
+      const t = i18n[currentLang]
       const btn = document.getElementById('submit-btn')
       const successMsg = document.getElementById('success-msg')
       const errorMsg = document.getElementById('error-msg')
 
       btn.disabled = true
-      btn.textContent = 'Enviando...'
+      btn.textContent = t.submitting
       successMsg.classList.add('hidden')
       errorMsg.classList.add('hidden')
 
@@ -159,9 +416,12 @@
         errorMsg.classList.remove('hidden')
       } finally {
         btn.disabled = false
-        btn.textContent = 'Quero ser avisado 🔔'
+        btn.textContent = t.submitBtn
       }
     })
+
+    // Init
+    setLang(detectLang())
   </script>
 </body>
 </html>
