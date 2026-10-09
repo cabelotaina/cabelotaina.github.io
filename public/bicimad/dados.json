@@ -1,7 +1,7 @@
 {
  "meta": {
   "titulo": "BiciMAD — disponibilidade por estação",
-  "gerado_em": "2026-10-09T21:41:44+02:00",
+  "gerado_em": "2026-10-09T21:43:10+02:00",
   "fonte": "EMT Madrid Open Data — feed GBFS",
   "url_fonte": "https://madrid.publicbikesystem.net/ube/gbfs/v1/en/station_status.json",
   "licenca_dados": "dados abertos do Ayuntamiento de Madrid",
