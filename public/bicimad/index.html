@@ -1,0 +1,29 @@
+<!doctype html><html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BiciMAD — disponibilidade por estação</title>
+<style>
+ body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      max-width:620px;margin:12vh auto;padding:0 22px;color:#1a1a1a;background:#fbfaf8}
+ h1{font-size:27px;margin:0 0 6px} .sub{color:#6b6459;font-size:14px;margin:0 0 30px}
+ a.card{display:block;background:#fff;border:1px solid #e3ded6;border-radius:12px;
+        padding:16px 20px;margin:12px 0;text-decoration:none;color:inherit}
+ a.card:hover{border-color:#b2182b}
+ a.card b{display:block;font-size:17px} a.card span{color:#6b6459;font-size:13.5px}
+ footer{color:#6b6459;font-size:12.5px;margin-top:34px;border-top:1px solid #e3ded6;padding-top:12px}
+</style></head><body>
+<h1>BiciMAD — disponibilidade por estação</h1>
+<p class="sub">Monitoramento da rede de bicicletas de Madrid a partir do feed GBFS
+público da EMT. Janela de 28 dias.</p>
+<a class="card" href="mapa.html"><b>Mapa das estações →</b>
+ <span>19 camadas de indicadores em duas vistas: mapa próprio com os polígonos
+ oficiais dos 21 distritos, e mapa base com ortofoto aérea do IGN.</span></a>
+<a class="card" href="painel.html"><b>Painel por distrito →</b>
+ <span>Tabela por distrito oficial, mapa de calor hora a hora, rondas de
+ furgoneta e as estações que passam mais tempo vazias.</span></a>
+<a class="card" href="dados.json"><b>Dados abertos (JSON) →</b>
+ <span>Os indicadores de cada uma das 678 estações, com as definições de cada
+ campo no próprio arquivo. É só JSON: pegue e use.</span></a>
+<footer>Dados: <a href="https://datos.emtmadrid.es/">EMT Madrid Open Data</a> (GBFS) ·
+ fronteiras: Geoportal do Ayuntamiento de Madrid · ortofoto: IGN PNOA<br>
+ Atualizado em 09/10/2026 21:39 · 1,964 coletas em 9.1 dias · 4 falha(s)</footer>
+</body></html>
